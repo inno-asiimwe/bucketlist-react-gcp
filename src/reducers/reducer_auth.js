@@ -1,21 +1,13 @@
 import { REGISTER } from '../actions/action_auth';
 
 const initialState = {
-    firstname: "",
-    lastname: "",
-    email: "",
-    username: "",
-    password: "",
-    cpassword: "",
-    title: "Bucketlist App",
+    username:"",
     isAuthenticated: false
 
 }
 
-export default function(state={}, action) {
+export default function(state=initialState, action) {
     switch(action.type) {
-        case REGISTER:
-            return [ ...state, { isAuthenticated:true }];
         default: 
             return state
     }
