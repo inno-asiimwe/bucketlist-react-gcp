@@ -7,7 +7,7 @@ import { registerUser } from '../actions';
 class RegisterUser extends Component {
     renderField(field) {
         const{ meta: { touched, error }} = field;
-        const className = `form-group ${touched && error ? 'has-danger': ''}`;
+        const className = `form-group row ${touched && error ? 'has-danger': ''}`;
         return (
             <div className={className}>
                 <label>{field.label}</label>
@@ -16,7 +16,7 @@ class RegisterUser extends Component {
                     type="text"
                     {...field.input}
                 />
-                <div className="text-help">
+                <div className="form-control-feedback">
                     {touched ? error: ''}
                 </div>
             </div>
@@ -28,40 +28,44 @@ class RegisterUser extends Component {
     render() {
         const { handleSubmit } = this.props;
         return (
-            <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-                <Field
-                    label="First Name"
-                    name="firstname"
-                    component={this.renderField}
-                />
-                <Field
-                    label="Last Name"
-                    name="lastname"
-                    component={this.renderField}
-                />
-                <Field
-                    label="Username"
-                    name="username"
-                    component={this.renderField}
-                />
-                <Field
-                    label="Password"
-                    name="password"
-                    component={this.renderField}
-                />
-                <Field
-                    label="Confirm Password"
-                    name="cpassword"
-                    component={this.renderField}
-                />
-                <Field
-                    label="Email"
-                    name="email"
-                    component={this.renderField}
-                />
-                <button type="submit" className="btn btn-primary">Submit</button>
-                <Link to="/" className="btn btn-danger">Cancel</Link>
-            </form>
+            <div className="container">
+                <h3> Register </h3>
+                <br></br>
+                <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+                    <Field
+                        label="First Name"
+                        name="firstname"
+                        component={this.renderField}
+                    />
+                    <Field
+                        label="Last Name"
+                        name="lastname"
+                        component={this.renderField}
+                    />
+                    <Field
+                        label="Username"
+                        name="username"
+                        component={this.renderField}
+                    />
+                    <Field
+                        label="Password"
+                        name="password"
+                        component={this.renderField}
+                    />
+                    <Field
+                        label="Confirm Password"
+                        name="cpassword"
+                        component={this.renderField}
+                    />
+                    <Field
+                        label="Email"
+                        name="email"
+                        component={this.renderField}
+                    />
+                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <Link to="/" className="btn btn-danger">Cancel</Link>
+                </form>
+            </div>
         );
     }
 }
