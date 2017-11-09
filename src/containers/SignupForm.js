@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { registerUser } from '../actions';
 
+const email_regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
 class RegisterUser extends Component {
     renderField(field) {
         const{ meta: { touched, error }} = field;
@@ -13,7 +15,7 @@ class RegisterUser extends Component {
                 <label>{field.label}</label>
                 <input 
                     className="form-control"
-                    type="text"
+                    type={field.input.name.includes("password") ? "password" : "text"}
                     {...field.input}
                 />
                 <div className="form-control-feedback">
@@ -90,6 +92,12 @@ function validate(values) {
     }
     if (!values.email) {
         errors.email = "Enter email";
+    }
+    if(values.password !== values.cpassword) {
+        errors.cpassword = "Passwords do not match";
+    }
+    if (!email_regex.test(values.email)){
+        errors.email = "Invalid email format";
     }
 
     return errors;
