@@ -1,4 +1,4 @@
-import { REGISTER, REGISTER_SUCCESS, REGISTER_ERROR, REGISTER_PENDING, LOGIN, LOGIN_PENDING, LOGIN_SUCCESS, LOGIN_ERROR } from '../actions/action_auth';
+import { REGISTER_SUCCESS, REGISTER_ERROR, REGISTER_PENDING, LOGIN_PENDING, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_ERROR, LOGOUT_PENDING, LOGOUT_SUCCESS } from '../actions/action_auth';
 
 const initialState = {
   Authenticated: false,
@@ -26,6 +26,18 @@ export default function (state = initialState, action) {
         Authenticated: true,
         loading: false,
         token: action.payload.data.auth_token
+      };
+    case LOGOUT_PENDING:
+      return { ...state, loading: true };
+    case LOGOUT_ERROR:
+      return { ...state, response: action.payload.response.data, loading: false };
+    case LOGOUT_SUCCESS:
+      return {
+        ...state,
+        response: action.payload.data,
+        Authenticated: false,
+        loading: false,
+        token: ''
       };
     default:
       return state;

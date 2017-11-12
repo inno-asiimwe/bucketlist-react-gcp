@@ -8,6 +8,10 @@ export const LOGIN = 'login';
 export const LOGIN_PENDING = 'login_REQUEST';
 export const LOGIN_SUCCESS = 'login_SUCCESS';
 export const LOGIN_ERROR = 'login_ERROR';
+export const LOGOUT = 'logout';
+export const LOGOUT_PENDING = 'login_REQUEST';
+export const LOGOUT_SUCCESS = 'login_SUCCESS';
+export const LOGOUT_ERROR = 'login_ERROR';
 
 export function registerUser(values) {
   const request = instance.post('/auth/register', values);
@@ -20,6 +24,13 @@ export function loginUser(values) {
   const request = instance.post('/auth/login', values);
   return {
     type: LOGIN,
+    payload: request
+  };
+}
+export function logoutUser() {
+  const request = instance.post('/auth/logout');
+  return {
+    type: LOGOUT,
     payload: request
   };
 }
