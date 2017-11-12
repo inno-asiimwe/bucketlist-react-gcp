@@ -9,15 +9,16 @@ import RegisterUser from './containers/SignupForm';
 
 
 ReactDOM.render(
-    <Provider store={ store }>
+  <Provider store={store}>
     <BrowserRouter>
-        <div>
-            <Switch>
-                <Route path="/login" component={RegisterUser} />
-                <Route path="/" component={App} />
-            </Switch>
-        </div>
+      <div>
+        <Switch>
+          <Route path="/register" component={RegisterUser} />
+          <Route path="/" component={App} />
+        </Switch>
+      </div>
     </BrowserRouter>
-    </Provider>,
-    document.getElementById('root'));
+  </Provider>,
+  document.getElementById('root')
+);
 

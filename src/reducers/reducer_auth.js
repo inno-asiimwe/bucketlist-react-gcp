@@ -1,14 +1,20 @@
-import { REGISTER } from '../actions/action_auth';
+import { REGISTER, REGISTER_SUCCESS, REGISTER_ERROR, REGISTER_PENDING } from '../actions/action_auth';
 
 const initialState = {
-    username:"",
-    isAuthenticated: false
+  Authenticated: false,
+  loading: false,
+  response: {}
+};
 
-}
-
-export default function(state=initialState, action) {
-    switch(action.type) {
-        default: 
-            return state
-    }
+export default function (state = initialState, action) {
+  switch (action.type) {
+    case REGISTER_PENDING:
+      return { ...state, loading: true };
+    case REGISTER_SUCCESS:
+      return { ...state, response: action.payload.data };
+    case REGISTER_ERROR:
+      return { ...state, response: action.payload.response.data };
+    default:
+      return state;
+  }
 }
