@@ -1,4 +1,4 @@
-import axios from 'axios';
+import instance from '../config/axiosConfig';
 
 export const REGISTER = 'register';
 export const REGISTER_SUCCESS = 'register_SUCCESS';
@@ -10,14 +10,14 @@ export const LOGIN_SUCCESS = 'login_SUCCESS';
 export const LOGIN_ERROR = 'login_ERROR';
 
 export function registerUser(values) {
-  const request = axios.post('http://127.0.0.1:5000/auth/register', values);
+  const request = instance.post('/auth/register', values);
   return {
     type: REGISTER,
     payload: request
   };
 }
 export function loginUser(values) {
-  const request = axios.post('http://127.0.0.1:5000/auth/login', values);
+  const request = instance.post('/auth/login', values);
   return {
     type: LOGIN,
     payload: request
