@@ -1,0 +1,72 @@
+import React, { Component } from 'react';
+import _ from 'lodash';
+import { Field, reduxForm, reset } from 'redux-form';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { loginUser } from '../actions';
+
+const FIELDS = ['username', 'password'];
+function renderField(field) {
+  const { meta: { touched, error } } = field;
+  const className = `form-group row ${touched && error ? 'has-danger' : ''}`;
+  return (
+    <div className={className}>
+      <label>{field.label}</label>
+      <input
+        className="form-control"
+        type={field.type}
+        {...field.input}
+      />
+      <div className="form-control-feedback">
+        {touched ? error : ''}
+      </div>
+    </div>
+  );
+}
+class LoginUser extends Component {
+  onSubmit(values) {
+    console.log(values);
+    this.props.loginUser(values);
+  }
+  render() {
+    const { handleSubmit } = this.props;
+    return (
+      <div className="container">
+        <h3> Login </h3>
+        <br />
+        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+          
+          <Field
+            label="Username"
+            name="username"
+            typoe="input"
+            component={renderField}
+          />
+          <Field
+            label="Password"
+            name="password"
+            type="password"
+            component={renderField}
+          />
+          <button type="submit" className="btn btn-primary">Submit</button>
+          <Link to="/" className="btn btn-danger">Cancel</Link>
+        </form>
+      </div>
+    );
+  }
+}
+
+function validate(values) {
+  const errors = {};
+  // validating the inputs from 'values'
+  _.forEach(FIELDS, (field) => {
+    if (!values[field]) {
+      errors[field] = `Enter a ${field}`;
+    }
+  });
+  return errors;
+}
+export default reduxForm({
+  validate,
+  form: 'RegisterForm'
+})(connect(null, { loginUser })(LoginUser));
