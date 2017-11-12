@@ -17,7 +17,9 @@ export function registerUser(values) {
   };
 }
 export function loginUser(values) {
+  const request = axios.post('http://127.0.0.1:5000/auth/login', values);
   return {
-    type: LOGIN
+    type: LOGIN,
+    payload: request
   };
 }

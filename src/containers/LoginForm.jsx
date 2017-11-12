@@ -68,5 +68,5 @@ function validate(values) {
 }
 export default reduxForm({
   validate,
-  form: 'RegisterForm'
+  form: 'LoginForm'
 })(connect(null, { loginUser })(LoginUser));
