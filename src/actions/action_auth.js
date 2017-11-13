@@ -9,9 +9,9 @@ export const LOGIN_PENDING = 'login_REQUEST';
 export const LOGIN_SUCCESS = 'login_SUCCESS';
 export const LOGIN_ERROR = 'login_ERROR';
 export const LOGOUT = 'logout';
-export const LOGOUT_PENDING = 'login_REQUEST';
-export const LOGOUT_SUCCESS = 'login_SUCCESS';
-export const LOGOUT_ERROR = 'login_ERROR';
+export const LOGOUT_PENDING = 'logout_REQUEST';
+export const LOGOUT_SUCCESS = 'logout_SUCCESS';
+export const LOGOUT_ERROR = 'logout_ERROR';
 
 export function registerUser(values) {
   const request = instance.post('/auth/register', values);

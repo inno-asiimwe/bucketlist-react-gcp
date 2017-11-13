@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import { Field, reduxForm, reset } from 'redux-form';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { registerUser } from '../actions';
 
 const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -29,6 +29,9 @@ class RegisterUser extends Component {
     this.props.registerUser(values);
   }
   render() {
+    if (this.props.auth.Authenticated) {
+      return <Redirect to="/" />;
+    }
     const { handleSubmit } = this.props;
     return (
       <div className="container">
@@ -99,7 +102,12 @@ function validate(values) {
 
   return errors;
 }
+function mapStateToProps(state) {
+  return {
+    auth: state.auth
+  };
+}
 export default reduxForm({
   validate,
   form: 'RegisterForm'
-})(connect(null, { registerUser })(RegisterUser));
+})(connect(mapStateToProps, { registerUser })(RegisterUser));
