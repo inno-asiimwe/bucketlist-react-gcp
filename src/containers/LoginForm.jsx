@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import { Field, reduxForm, reset } from 'redux-form';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { loginUser } from '../actions';
 
 const FIELDS = ['username', 'password'];
@@ -29,13 +29,16 @@ class LoginUser extends Component {
     this.props.loginUser(values);
   }
   render() {
+    if (this.props.auth.Authenticated) {
+      return <Redirect to="/" />;
+    }
     const { handleSubmit } = this.props;
     return (
       <div className="container">
         <h3> Login </h3>
         <br />
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-          
+
           <Field
             label="Username"
             name="username"
@@ -66,7 +69,10 @@ function validate(values) {
   });
   return errors;
 }
+function mapStateToProps(state) {
+  return { auth: state.auth };
+}
 export default reduxForm({
   validate,
   form: 'LoginForm'
-})(connect(null, { loginUser })(LoginUser));
+})(connect(mapStateToProps, { loginUser })(LoginUser));
