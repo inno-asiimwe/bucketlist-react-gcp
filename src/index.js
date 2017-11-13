@@ -6,6 +6,7 @@ import './style/style.css';
 import store from '../src/config/store';
 import App from './containers/App';
 import RegisterUser from './containers/SignupForm';
+import LoginUser from './containers/LoginForm';
 
 
 ReactDOM.render(
@@ -14,6 +15,7 @@ ReactDOM.render(
       <div>
         <Switch>
           <Route path="/register" component={RegisterUser} />
+          <Route path="/login" component={LoginUser} />
           <Route path="/" component={App} />
         </Switch>
       </div>

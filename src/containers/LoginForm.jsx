@@ -3,10 +3,9 @@ import _ from 'lodash';
 import { Field, reduxForm, reset } from 'redux-form';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import { registerUser } from '../actions';
+import { loginUser } from '../actions';
 
-const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const FIELDS = ['firstname', 'lastname', 'username', 'password', 'cpassword', 'email'];
+const FIELDS = ['username', 'password'];
 function renderField(field) {
   const { meta: { touched, error } } = field;
   const className = `form-group row ${touched && error ? 'has-danger' : ''}`;
@@ -24,9 +23,10 @@ function renderField(field) {
     </div>
   );
 }
-class RegisterUser extends Component {
+class LoginUser extends Component {
   onSubmit(values) {
-    this.props.registerUser(values);
+    console.log(values);
+    this.props.loginUser(values);
   }
   render() {
     if (this.props.auth.Authenticated) {
@@ -35,21 +35,10 @@ class RegisterUser extends Component {
     const { handleSubmit } = this.props;
     return (
       <div className="container">
-        <h3> Register </h3>
+        <h3> Login </h3>
         <br />
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-          <Field
-            label="First Name"
-            name="firstname"
-            type="input"
-            component={renderField}
-          />
-          <Field
-            label="Last Name"
-            name="lastname"
-            type="input"
-            component={renderField}
-          />
+
           <Field
             label="Username"
             name="username"
@@ -60,18 +49,6 @@ class RegisterUser extends Component {
             label="Password"
             name="password"
             type="password"
-            component={renderField}
-          />
-          <Field
-            label="Confirm Password"
-            name="cpassword"
-            type="password"
-            component={renderField}
-          />
-          <Field
-            label="Email"
-            name="email"
-            type="email"
             component={renderField}
           />
           <button type="submit" className="btn btn-primary">Submit</button>
@@ -90,24 +67,12 @@ function validate(values) {
       errors[field] = `Enter a ${field}`;
     }
   });
-  if (!values.cpassword) {
-    errors.cpassword = 'Confirm password';
-  }
-  if (values.password !== values.cpassword) {
-    errors.cpassword = 'Passwords do not match';
-  }
-  if (!emailRegex.test(values.email)) {
-    errors.email = 'Invalid email format';
-  }
-
   return errors;
 }
 function mapStateToProps(state) {
-  return {
-    auth: state.auth
-  };
+  return { auth: state.auth };
 }
 export default reduxForm({
   validate,
-  form: 'RegisterForm'
-})(connect(mapStateToProps, { registerUser })(RegisterUser));
+  form: 'LoginForm'
+})(connect(mapStateToProps, { loginUser })(LoginUser));
