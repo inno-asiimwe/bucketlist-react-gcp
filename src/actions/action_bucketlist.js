@@ -1,14 +1,14 @@
 import instance from '../config/axiosConfig';
 
-export const GET_POSTS = 'get_post';
-export const GET_POSTS_PENDING = 'get_posts_REQUEST';
-export const GET_POSTS_SUCCESS = 'get_posts_SUCCESS';
-export const GET_POSTS_ERROR = 'get_posts_ERROR';
+export const GET_BUCKETLISTS = 'get_bucketlists';
+export const GET_BUCKETLISTS_PENDING = 'get_bucketlists_REQUEST';
+export const GET_BUCKETLISTS_SUCCESS = 'get_bucketlists_SUCCESS';
+export const GET_BUCKETLISTS_ERROR = 'get_bucketlists_ERROR';
 
-export function getPosts() {
+export function getBucketlists() {
   const request = instance.get('/bucketlists');
   return {
-    type: GET_POSTS,
+    type: GET_BUCKETLISTS,
     payload: request
   };
 }
