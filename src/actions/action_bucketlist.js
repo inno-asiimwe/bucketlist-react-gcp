@@ -13,6 +13,8 @@ export const DELETE_BUCKETLIST_SUCCESS = 'delete_bucketlist_SUCCESS';
 export const DELETE_BUCKETLIST_PENDING = 'delete_bucketlist_REQUEST';
 export const GET_BUCKETLIST = 'get_bucketlist';
 export const GET_BUCKETLIST_SUCCESS = 'get_bucketlist_SUCCESS';
+export const EDIT_BUCKETLIST = 'edit_bucketlist';
+export const EDIT_BUCKETLIST_SUCCESS = 'edit_bucketlist_SUCCESS';
 
 export function getBucketlists() {
   const request = instance.get('/bucketlists');
@@ -39,9 +41,17 @@ export function deleteBucketlist(id) {
 }
 
 export function getBucketlist(id) {
-  const request = instance.get(`/bucketlist/${id}`);
+  const request = instance.get(`/bucketlists/${id}`);
   return {
     type: GET_BUCKETLIST,
+    payload: request
+  };
+}
+
+export function editBucketlist(id, values) {
+  const request = instance.put(`/bucketlists/${id}`, values);
+  return {
+    type: EDIT_BUCKETLIST,
     payload: request
   };
 }
