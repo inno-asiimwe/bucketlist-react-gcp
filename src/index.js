@@ -7,6 +7,7 @@ import store from '../src/config/store';
 import App from './containers/App';
 import RegisterUser from './containers/SignupForm';
 import LoginUser from './containers/LoginForm';
+import NewBucketlist from './containers/NewBucketlist';
 
 
 ReactDOM.render(
@@ -14,6 +15,7 @@ ReactDOM.render(
     <BrowserRouter>
       <div>
         <Switch>
+          <Route path = "/bucketlists/new" component={NewBucketlist}/>
           <Route path="/register" component={RegisterUser} />
           <Route path="/login" component={LoginUser} />
           <Route path="/" component={App} />

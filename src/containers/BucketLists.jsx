@@ -32,7 +32,7 @@ class BucketLists extends Component {
     return (
       <div className="jumbotron">
         <div className="text-right">
-            <Link className="btn btn-primary" to="#">
+            <Link className="btn btn-primary" to="/bucketlists/new">
                 Add a bucketlist
             </Link>
         </div>

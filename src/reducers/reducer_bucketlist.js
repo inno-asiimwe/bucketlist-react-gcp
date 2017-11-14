@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { GET_BUCKETLISTS_PENDING, GET_BUCKETLISTS_SUCCESS, GET_BUCKETLISTS_ERROR } from '../actions/action_bucketlist';
+import { GET_BUCKETLISTS_PENDING, GET_BUCKETLISTS_SUCCESS, GET_BUCKETLISTS_ERROR} from '../actions/action_bucketlist';
 
 export default function (state = [], action) {
   switch (action.type) {
@@ -9,3 +9,4 @@ export default function (state = [], action) {
       return state;
   }
 }
+

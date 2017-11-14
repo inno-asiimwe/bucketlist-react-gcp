@@ -18,10 +18,9 @@ export function getBucketlists() {
 }
 
 export function addBucketlist(values, callback) {
-  const request = instance.post('/bucketlists', values);
+  const request = instance.post('/bucketlists', values).then(() => callback());
   return {
     type: ADD_BUCKETLIST,
-    payload: request,
-    callback: callback()
+    payload: request
   };
 }
