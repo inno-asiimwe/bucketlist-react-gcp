@@ -28,10 +28,10 @@ export function addBucketlist(values, callback) {
   };
 }
 
-export function deleteBucketlist(id, callback) {
-  instance.delete(`/bucketlists/${id}`).then(() => callback());
+export function deleteBucketlist(id) {
+  const request = instance.delete(`/bucketlists/${id}`);
   return {
     type: DELETE_BUCKETLIST,
-    payload: id
+    payload: request
   };
 }

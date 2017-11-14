@@ -6,7 +6,7 @@ export default function (state = [], action) {
     case GET_BUCKETLISTS_SUCCESS:
       return _.mapKeys(action.payload.data, 'id');
     case DELETE_BUCKETLIST_SUCCESS:
-      return _.omit(state, action.payload);
+      return _.omit(state, action.payload.data.bucketlist);
     default:
       return state;
   }
