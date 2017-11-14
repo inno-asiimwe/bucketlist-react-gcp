@@ -5,6 +5,10 @@ import _ from 'lodash';
 import { getBucketlists } from '../actions/action_bucketlist';
 
 class BucketLists extends Component {
+  constructor(props) {
+    super(props);
+    this.renderBucketlists = this.renderBucketlists.bind(this);
+  }
   componentDidMount() {
     this.props.getBucketlists();
   }
@@ -21,9 +25,9 @@ class BucketLists extends Component {
           <Link className="btn btn-primary" to="#">
             EDIT
           </Link>
-          <Link className="btn btn-danger" to="#">
+          <button className="btn btn-danger text-xs-right" >
             DELETE
-          </Link>
+          </button>
         </li>
       );
     });
@@ -32,9 +36,9 @@ class BucketLists extends Component {
     return (
       <div className="jumbotron">
         <div className="text-right">
-            <Link className="btn btn-primary" to="/bucketlists/new">
-                Add a bucketlist
-            </Link>
+          <Link className="btn btn-primary" to="/bucketlists/new">
+            Add a bucketlist
+          </Link>
         </div>
         <h3>Bucketlists table</h3>
         <ul className="list-group">
