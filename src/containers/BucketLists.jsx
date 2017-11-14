@@ -15,17 +15,15 @@ class BucketLists extends Component {
           <Link className="text-xs-left" to={`/bucketlists/${bucketlist.id}`}>
             {bucketlist.name}
           </Link>
-          <span className="pull-right">
-            <Link className="btn btn-success" to="#">
-                OPEN
-            </Link>
-            <Link className="btn btn-primary" to="#">
-                EDIT
-            </Link>
-            <Link className="btn btn-danger" to="#">
-                DELETE
-            </Link>
-          </span>
+          <Link className="btn btn-success" to="#">
+            OPEN
+          </Link>
+          <Link className="btn btn-primary" to="#">
+            EDIT
+          </Link>
+          <Link className="btn btn-danger" to="#">
+            DELETE
+          </Link>
         </li>
       );
     });
@@ -33,6 +31,11 @@ class BucketLists extends Component {
   render() {
     return (
       <div className="jumbotron">
+        <div className="text-right">
+            <Link className="btn btn-primary" to="#">
+                Add a bucketlist
+            </Link>
+        </div>
         <h3>Bucketlists table</h3>
         <ul className="list-group">
           {this.renderBucketlists()}
