@@ -11,6 +11,7 @@ export const ADD_BUCKETLIST_ERROR = 'add_bucketlist_ERROR';
 export const DELETE_BUCKETLIST = 'delete_bucketlist';
 export const DELETE_BUCKETLIST_SUCCESS = 'delete_bucketlist_SUCCESS';
 export const DELETE_BUCKETLIST_PENDING = 'delete_bucketlist_REQUEST';
+export const GET_BUCKETLIST = 'get_bucketlist';
 
 export function getBucketlists() {
   const request = instance.get('/bucketlists');
@@ -32,6 +33,14 @@ export function deleteBucketlist(id) {
   const request = instance.delete(`/bucketlists/${id}`);
   return {
     type: DELETE_BUCKETLIST,
+    payload: request
+  };
+}
+
+export function getBucketlist(id) {
+  const request = instance.get(`/bucketlist/${id}`);
+  return {
+    type: GET_BUCKETLIST,
     payload: request
   };
 }
