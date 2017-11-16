@@ -8,8 +8,8 @@ import App from './containers/App';
 import RegisterUser from './containers/SignupForm';
 import LoginUser from './containers/LoginForm';
 import NewBucketlist from './containers/NewBucketlist';
-import UpdateBucketlist from './containers/UpdateBucketList';
 import EditBucketlist from './containers/EditBucketlist';
+import ShowBucketlist from './containers/Bucketlist';
 
 
 ReactDOM.render(
@@ -18,6 +18,7 @@ ReactDOM.render(
       <div>
         <Switch>
           <Route path="/bucketlists/:id/edit" component={EditBucketlist}/>
+          <Route path="/bucketlists/:id" component={ShowBucketlist} />
           <Route path = "/bucketlists/new" component={NewBucketlist}/>
           <Route path="/register" component={RegisterUser} />
           <Route path="/login" component={LoginUser} />

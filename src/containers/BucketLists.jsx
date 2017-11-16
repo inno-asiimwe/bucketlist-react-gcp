@@ -25,7 +25,7 @@ class BucketLists extends Component {
           </Link>
         </td>
         <td>
-          <Link className="btn btn-success" to="#">
+          <Link className="btn btn-success" to={`/bucketlists/${bucketlist.id}`}>
                 OPEN
           </Link>
         </td>
