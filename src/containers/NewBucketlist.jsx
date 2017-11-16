@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import { Field, reduxForm, reset } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { addBucketlist } from '../actions';
 
 const FIELDS = ['name', 'description'];
@@ -24,8 +24,11 @@ function renderField(field) {
   );
 }
 class NewBucketlist extends Component {
+  constructor(props) {
+    super(props);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
   onSubmit(values) {
-    console.log(values);
     this.props.addBucketlist(values, () => {
       this.props.history.push('/');
     });
@@ -36,7 +39,7 @@ class NewBucketlist extends Component {
       <div className="container">
         <h3> New Bucketlist</h3>
         <br />
-        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+        <form onSubmit={handleSubmit(this.onSubmit)}>
 
           <Field
             label="Bucketlist Name"

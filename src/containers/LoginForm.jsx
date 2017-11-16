@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import { Field, reduxForm, reset } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { loginUser } from '../actions';
@@ -24,8 +24,11 @@ function renderField(field) {
   );
 }
 class LoginUser extends Component {
+  constructor(props) {
+    super(props);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
   onSubmit(values) {
-    console.log(values);
     this.props.loginUser(values);
   }
   render() {
@@ -37,7 +40,7 @@ class LoginUser extends Component {
       <div className="container">
         <h3> Login </h3>
         <br />
-        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+        <form onSubmit={handleSubmit(this.onSubmit)}>
 
           <Field
             label="Username"

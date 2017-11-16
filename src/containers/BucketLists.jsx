@@ -17,32 +17,30 @@ class BucketLists extends Component {
     this.props.deleteBucketlist(id);
   }
   renderBucketlists() {
-    return _.map(this.props.bucketlists, (bucketlist) => {
-      return (
-        <tr>
-          <td>
-            <Link className="text-xs-left" to={`/bucketlists/${bucketlist.id}`}>
-              {bucketlist.name}
-            </Link>
-          </td>
-          <td>
-            <Link className="btn btn-success" to="#">
+    return _.map(this.props.bucketlists, bucketlist => (
+      <tr>
+        <td>
+          <Link className="text-xs-left" to={`/bucketlists/${bucketlist.id}`}>
+            {bucketlist.name}
+          </Link>
+        </td>
+        <td>
+          <Link className="btn btn-success" to="#">
                 OPEN
-            </Link>
-          </td>
-          <td>
-            <Link className="btn btn-primary" to="#">
+          </Link>
+        </td>
+        <td>
+          <Link className="btn btn-primary" to={`/bucketlists/${bucketlist.id}/edit`}>
                 EDIT
-            </Link>
-          </td>
-          <td>
-            <button className="btn btn-danger text-xs-right" onClick={() => this.onDelete(bucketlist.id)} >
+          </Link>
+        </td>
+        <td>
+          <button className="btn btn-danger" onClick={() => this.onDelete(bucketlist.id)} >
                 DELETE
-            </button>
-          </td>
-        </tr>
-      );
-    });
+          </button>
+        </td>
+      </tr>
+    ));
   }
   render() {
     return (
@@ -66,4 +64,7 @@ class BucketLists extends Component {
 function mapStateToProps(state) {
   return { bucketlists: state.bucketlists };
 }
-export default connect(mapStateToProps, { getBucketlists, deleteBucketlist })(BucketLists);
+export default connect(
+  mapStateToProps,
+  { getBucketlists, deleteBucketlist }
+)(BucketLists);

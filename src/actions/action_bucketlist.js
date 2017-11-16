@@ -48,8 +48,8 @@ export function getBucketlist(id) {
   };
 }
 
-export function editBucketlist(id, values) {
-  const request = instance.put(`/bucketlists/${id}`, values);
+export function editBucketlist(id, values, callback) {
+  const request = instance.put(`/bucketlists/${id}`, values).then(() => callback());
   return {
     type: EDIT_BUCKETLIST,
     payload: request
