@@ -10,6 +10,7 @@ import LoginUser from './containers/LoginForm';
 import NewBucketlist from './containers/NewBucketlist';
 import EditBucketlist from './containers/EditBucketlist';
 import ShowBucketlist from './containers/Bucketlist';
+import NewItem from './containers/NewBucketlistItem';
 
 
 ReactDOM.render(
@@ -18,7 +19,8 @@ ReactDOM.render(
       <div>
         <Switch>
           <Route exact path = "/bucketlists/new" component={NewBucketlist}/>
-          <Route path="/bucketlists/:id/edit" component={EditBucketlist}/>
+          <Route exact path="/bucketlists/:id/edit" component={EditBucketlist}/>
+          <Route path="/bucketlists/:id/new" component={NewItem}/>
           <Route path="/bucketlists/:id" component={ShowBucketlist} />
           <Route path="/register" component={RegisterUser} />
           <Route path="/login" component={LoginUser} />
