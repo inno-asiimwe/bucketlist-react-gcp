@@ -29,8 +29,9 @@ class NewItem extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
   onSubmit(values) {
-    this.props.addBucketlistItem(values, () => {
-      this.props.history.push('/');
+    const { id } = this.props.match.params;
+    this.props.addBucketlistItem(id, values, () => {
+      this.props.history.push(`/bucketlists/${id}`);
     });
   }
   render() {
