@@ -17,7 +17,7 @@ export const EDIT_BUCKETLIST = 'edit_bucketlist';
 export const EDIT_BUCKETLIST_SUCCESS = 'edit_bucketlist_SUCCESS';
 
 export function getBucketlists() {
-  const request = instance.get('/bucketlists');
+  const request = instance.get('/v1/bucketlists');
   return {
     type: GET_BUCKETLISTS,
     payload: request
@@ -25,7 +25,7 @@ export function getBucketlists() {
 }
 
 export function addBucketlist(values, callback) {
-  const request = instance.post('/bucketlists', values).then(() => callback());
+  const request = instance.post('/v1/bucketlists', values).then(() => callback());
   return {
     type: ADD_BUCKETLIST,
     payload: request
@@ -33,7 +33,7 @@ export function addBucketlist(values, callback) {
 }
 
 export function deleteBucketlist(id) {
-  const request = instance.delete(`/bucketlists/${id}`);
+  const request = instance.delete(`/v1/bucketlists/${id}`);
   return {
     type: DELETE_BUCKETLIST,
     payload: request
@@ -41,7 +41,7 @@ export function deleteBucketlist(id) {
 }
 
 export function getBucketlist(id) {
-  const request = instance.get(`/bucketlists/${id}`);
+  const request = instance.get(`/v1/bucketlists/${id}`);
   return {
     type: GET_BUCKETLIST,
     payload: request
@@ -49,7 +49,7 @@ export function getBucketlist(id) {
 }
 
 export function editBucketlist(id, values, callback) {
-  const request = instance.put(`/bucketlists/${id}`, values).then(() => callback());
+  const request = instance.put(`/v1/bucketlists/${id}`, values).then(() => callback());
   return {
     type: EDIT_BUCKETLIST,
     payload: request
