@@ -14,21 +14,21 @@ export const LOGOUT_SUCCESS = 'logout_SUCCESS';
 export const LOGOUT_ERROR = 'logout_ERROR';
 
 export function registerUser(values) {
-  const request = instance.post('/auth/register', values);
+  const request = instance.post('/v1/auth/register', values);
   return {
     type: REGISTER,
     payload: request
   };
 }
 export function loginUser(values) {
-  const request = instance.post('/auth/login', values);
+  const request = instance.post('/v1/auth/login', values);
   return {
     type: LOGIN,
     payload: request
   };
 }
 export function logoutUser() {
-  const request = instance.post('/auth/logout');
+  const request = instance.post('/v1/auth/logout');
   return {
     type: LOGOUT,
     payload: request

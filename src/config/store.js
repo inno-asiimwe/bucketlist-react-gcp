@@ -5,6 +5,7 @@ import { persistStore, autoRehydrate } from 'redux-persist';
 import { middleware } from 'redux-promise-actions';
 
 import reducers from '../reducers';
+import bucketlistReducer from '../reducers/reducer_bucketlist';
 
 const store = createStore(
   reducers,

@@ -2,6 +2,13 @@ form a {
     margin-left: 5px;
 }
 
+li a {
+    margin-left: 15px;
+}
+
 body{
     background: whitesmoke; 
+}
+div h3 {
+    margin-top: 50px;
 }

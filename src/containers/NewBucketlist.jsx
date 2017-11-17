@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
-import { loginUser } from '../actions';
+import { Link } from 'react-router-dom';
+import { addBucketlist } from '../actions';
 
-const FIELDS = ['username', 'password'];
+const FIELDS = ['name', 'description'];
 function renderField(field) {
   const { meta: { touched, error } } = field;
   const className = `form-group row ${touched && error ? 'has-danger' : ''}`;
@@ -23,38 +23,37 @@ function renderField(field) {
     </div>
   );
 }
-class LoginUser extends Component {
+class NewBucketlist extends Component {
   constructor(props) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
   }
   onSubmit(values) {
-    this.props.loginUser(values);
+    this.props.addBucketlist(values, () => {
+      this.props.history.push('/');
+    });
   }
   render() {
-    if (this.props.auth.Authenticated) {
-      return <Redirect to="/" />;
-    }
     const { handleSubmit } = this.props;
     return (
       <div className="container">
-        <h3> Login </h3>
+        <h3> New Bucketlist</h3>
         <br />
         <form onSubmit={handleSubmit(this.onSubmit)}>
 
           <Field
-            label="Username"
-            name="username"
-            typoe="input"
+            label="Bucketlist Name"
+            name="name"
+            type="input"
             component={renderField}
           />
           <Field
-            label="Password"
-            name="password"
-            type="password"
+            label="Bucketlist Description"
+            name="description"
+            type="text"
             component={renderField}
           />
-          <button type="submit" className="btn btn-primary">Submit</button>
+          <button type="submit" className="btn btn-success">Create</button>
           <Link to="/" className="btn btn-danger">Cancel</Link>
         </form>
       </div>
@@ -72,10 +71,8 @@ function validate(values) {
   });
   return errors;
 }
-function mapStateToProps(state) {
-  return { auth: state.auth };
-}
+
 export default reduxForm({
   validate,
-  form: 'LoginForm'
-})(connect(mapStateToProps, { loginUser })(LoginUser));
+  form: 'NewBucketlistForm'
+})(connect(null, { addBucketlist })(NewBucketlist));

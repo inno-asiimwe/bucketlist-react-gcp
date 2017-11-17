@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { logoutUser } from '../actions/action_auth';
+import BucketLists from '../containers/BucketLists';
 
 
-const App = (props) => { 
+const App = (props) => {
   if (!props.auth.Authenticated) {
     return <Redirect to="/login" />;
   }
@@ -13,6 +14,7 @@ const App = (props) => {
       <button onClick={() => props.logoutUser()}>
         Logout
       </button>
+      <BucketLists />
     </div>
   );
 };
