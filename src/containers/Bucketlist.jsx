@@ -36,6 +36,7 @@ class ShowBucketlist extends Component {
     }
     const { name } = bucketlist;
     const { description } = bucketlist;
+    const { id } = bucketlist;
     return (
       <div className="jumbotron">
         <div>
@@ -43,7 +44,7 @@ class ShowBucketlist extends Component {
             <Link className="btn btn-primary" to="/" >Back to Bucketlists</Link>
           </div>
           <div className="float-right text-right">
-            <Link className="btn btn-primary" to="#" >Add Bucketlist item</Link>
+            <Link className="btn btn-primary" to={`/bucketlists/${id}/new`} >Add Bucketlist item</Link>
           </div>
         </div>
         <div>

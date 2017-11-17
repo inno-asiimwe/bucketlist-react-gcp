@@ -9,7 +9,11 @@ export default function (state = initialState, action) {
     case DELETE_BUCKETLIST_SUCCESS:
       return _.omit(state, action.payload.data.bucketlist);
     case GET_BUCKETLIST_SUCCESS:
-      return { ...state, [action.payload.data.id]: action.payload.data, current: action.payload.data };
+      return {
+        ...state,
+        [action.payload.data.id]: action.payload.data,
+        current: action.payload.data
+      };
     default:
       return state;
   }
