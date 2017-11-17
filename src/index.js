@@ -17,9 +17,9 @@ ReactDOM.render(
     <BrowserRouter>
       <div>
         <Switch>
+          <Route exact path = "/bucketlists/new" component={NewBucketlist}/>
           <Route path="/bucketlists/:id/edit" component={EditBucketlist}/>
           <Route path="/bucketlists/:id" component={ShowBucketlist} />
-          <Route path = "/bucketlists/new" component={NewBucketlist}/>
           <Route path="/register" component={RegisterUser} />
           <Route path="/login" component={LoginUser} />
           <Route path="/" component={App} />
