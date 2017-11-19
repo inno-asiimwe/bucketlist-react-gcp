@@ -5,7 +5,7 @@ import { getBucketlist, editBucketlist } from '../actions/action_bucketlist';
 import UpdateBucketlistForm from './UpdateBucketList';
 
 
-class EditBucketlist extends Component {
+class EditBucketlistItem extends Component {
   constructor(props) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
@@ -16,24 +16,25 @@ class EditBucketlist extends Component {
   }
   onSubmit(values) {
     const { id } = this.props.match.params;
-    this.props.editBucketlist(id, values, () => {
-      this.props.history.push('/');
+    const { itemid } = this.props.match.params;
+    this.props.editItem(id, itemid, values, () => {
+      this.props.history.push(`/${id}`);
     });
   }
   render() {
-    const { bucketlist } = this.props;
-    if (!bucketlist) {
+    const { item } = this.props;
+    if (!item) {
       return <div> Loading...</div>;
     }
-    const { name } = this.props.bucketlist;
-    const { description } = this.props.bucketlist;
+    const { name } = this.props.item;
+    const { description } = this.props.item;
     return (
       <div>
-           Edit bucketlist
+           Edit bucketlist Item
            <UpdateBucketlistForm
              initialValues={{ name, description }}
              onSubmit={this.onSubmit}
-             entity="Bucketlist"
+             entity="Item"
            />
       </div>
     );
@@ -41,7 +42,7 @@ class EditBucketlist extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  return { bucketlist: state.bucketlists[ownProps.match.params.id] };
+  return { item: state.bucketlists[ownProps.match.params.id].items[ownProps.match.params.itemid] };
 }
 
-export default connect(mapStateToProps, { getBucketlist, editBucketlist })(EditBucketlist);
+export default connect(mapStateToProps, { getBucketlist, editBucketlist })(EditBucketlistItem);

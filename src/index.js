@@ -11,6 +11,7 @@ import NewBucketlist from './containers/NewBucketlist';
 import EditBucketlist from './containers/EditBucketlist';
 import ShowBucketlist from './containers/Bucketlist';
 import NewItem from './containers/NewBucketlistItem';
+import EditBucketlistItem from './containers/EditBucketlistItem';
 
 
 ReactDOM.render(
@@ -18,6 +19,7 @@ ReactDOM.render(
     <BrowserRouter>
       <div>
         <Switch>
+          <Route path="/bucketlists/:id/:itemid/edit" component={EditBucketlistItem}/>
           <Route exact path = "/bucketlists/new" component={NewBucketlist}/>
           <Route exact path="/bucketlists/:id/edit" component={EditBucketlist}/>
           <Route path="/bucketlists/:id/new" component={NewItem}/>

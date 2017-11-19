@@ -27,7 +27,7 @@ class ShowBucketlist extends Component {
           {item.name}
         </td>
         <td>
-          <Link className="btn btn-primary" to="#">
+          <Link className="btn btn-primary" to={`/bucketlists/${id}/${item.id}/edit`}>
                 Edit
           </Link>
         </td>

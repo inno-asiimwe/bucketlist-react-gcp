@@ -26,21 +26,22 @@ function renderField(field) {
 const UpdateBucketlistForm = (props) => {
   const { handleSubmit } = props;
   const { onSubmit } = props;
+  const { entity } = props;
 
   return (
     <div className="container">
-      <h3> Update Bucketlist</h3>
+      <h3> {`Update ${entity}`}</h3>
       <br />
       <form onSubmit={handleSubmit(onSubmit)}>
 
         <Field
-          label="Bucketlist Name"
+          label={`${entity} Name`}
           name="name"
           type="input"
           component={renderField}
         />
         <Field
-          label="Bucketlist Description"
+          label={`${entity} Description`}
           name="description"
           type="text"
           component={renderField}
