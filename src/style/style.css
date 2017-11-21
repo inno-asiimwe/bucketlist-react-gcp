@@ -6,9 +6,12 @@ li a {
     margin-left: 15px;
 }
 
-body{
+body {
     background: whitesmoke; 
 }
 div h3 {
     margin-top: 50px;
+}
+table {
+    display: table;
 }

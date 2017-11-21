@@ -25,6 +25,7 @@ export default function (state = initialState, action) {
         response: action.payload.data,
         Authenticated: true,
         loading: false,
+        loaded: true,
         token: action.payload.data.auth_token
       };
     case LOGOUT_PENDING:

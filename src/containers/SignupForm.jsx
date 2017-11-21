@@ -29,6 +29,9 @@ class RegisterUser extends Component {
     this.props.registerUser(values);
   }
   render() {
+    if (!this.props.auth.loaded) {
+      return <div>Loading...</div>;
+    }
     if (this.props.auth.Authenticated) {
       return <Redirect to="/" />;
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getBucketlist, editBucketlist } from '../actions/action_bucketlist';
+import { getBucketlist, editItem } from '../actions/action_bucketlist';
 import UpdateBucketlistForm from './UpdateBucketList';
 
 
@@ -18,7 +18,7 @@ class EditBucketlistItem extends Component {
     const { id } = this.props.match.params;
     const { itemid } = this.props.match.params;
     this.props.editItem(id, itemid, values, () => {
-      this.props.history.push(`/${id}`);
+      this.props.history.push(`/bucketlists/${id}`);
     });
   }
   render() {
@@ -35,6 +35,7 @@ class EditBucketlistItem extends Component {
              initialValues={{ name, description }}
              onSubmit={this.onSubmit}
              entity="Item"
+             returnTo={`/bucketlists/${this.props.match.params.id}`}
            />
       </div>
     );
@@ -45,4 +46,4 @@ function mapStateToProps(state, ownProps) {
   return { item: state.bucketlists[ownProps.match.params.id].items[ownProps.match.params.itemid] };
 }
 
-export default connect(mapStateToProps, { getBucketlist, editBucketlist })(EditBucketlistItem);
+export default connect(mapStateToProps, { getBucketlist, editItem })(EditBucketlistItem);

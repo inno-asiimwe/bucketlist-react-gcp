@@ -27,6 +27,7 @@ const UpdateBucketlistForm = (props) => {
   const { handleSubmit } = props;
   const { onSubmit } = props;
   const { entity } = props;
+  const { returnTo } = props;
 
   return (
     <div className="container">
@@ -47,7 +48,7 @@ const UpdateBucketlistForm = (props) => {
           component={renderField}
         />
         <button type="submit" className="btn btn-success">Save</button>
-        <Link to="/" className="btn btn-danger">Cancel</Link>
+        <Link to={returnTo} className="btn btn-danger">Cancel</Link>
       </form>
     </div>
   );
