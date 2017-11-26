@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import './style/style.css';
 import store from '../src/config/store';
-import App from './containers/App';
+import App from './components/App';
 import RegisterUser from './containers/SignupForm';
 import LoginUser from './containers/LoginForm';
 import NewBucketlist from './containers/NewBucketlist';

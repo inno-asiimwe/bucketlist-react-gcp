@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { getBucketlist, editItem } from '../actions/action_bucketlist';
-import UpdateBucketlistForm from './UpdateBucketList';
+import UpdateBucketlistForm from '../components/UpdateBucketList';
 
 
 class EditBucketlistItem extends Component {
