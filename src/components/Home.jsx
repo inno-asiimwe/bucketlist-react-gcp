@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { logoutUser } from '../actions/action_auth';
 import BucketLists from '../containers/BucketLists';
 
 
-const App = (props) => {
+const Home = (props) => {
   if (!props.auth.loaded) {
     return <div>Loading...</div>;
   }
@@ -27,4 +27,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { logoutUser })(App);
+export default connect(mapStateToProps, { logoutUser })(Home);

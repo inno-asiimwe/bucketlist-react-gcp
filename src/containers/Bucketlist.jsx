@@ -49,24 +49,26 @@ class ShowBucketlist extends Component {
     const { description } = bucketlist;
     const { id } = bucketlist;
     return (
-      <div className="jumbotron">
-        <div>
-          <div className="float-left">
-            <Link className="btn btn-primary" to="/" >Back to Bucketlists</Link>
+      <div className="container">
+        <div className="jumbotron">
+          <div>
+            <div className="float-left">
+              <Link className="btn btn-primary" to="/" >Back to Bucketlists</Link>
+            </div>
+            <div className="float-right text-right">
+              <Link className="btn btn-primary" to={`/bucketlists/${id}/new`} >Add Bucketlist item</Link>
+            </div>
           </div>
-          <div className="float-right text-right">
-            <Link className="btn btn-primary" to={`/bucketlists/${id}/new`} >Add Bucketlist item</Link>
+          <div>
+            <h3>{name} </h3>
+            <p>description: {description}</p>
+            <h4>{`items in ${name}`}</h4>
+            <table className="table">
+              <tbody>
+                {this.renderItems(id)}
+              </tbody>
+            </table>
           </div>
-        </div>
-        <div>
-          <h3>{name} </h3>
-          <p>description: {description}</p>
-          <h4>{`items in ${name}`}</h4>
-          <table className="table">
-            <tbody>
-              {this.renderItems(id)}
-            </tbody>
-          </table>
         </div>
       </div>
     );

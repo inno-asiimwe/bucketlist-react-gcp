@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import _ from 'lodash';
-import { Field, reduxForm, reset } from 'redux-form';
-import { connect } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
-import { } from '../actions';
 
 const FIELDS = ['name', 'description'];
 function renderField(field) {

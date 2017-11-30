@@ -44,18 +44,20 @@ class BucketLists extends Component {
   }
   render() {
     return (
-      <div className="jumbotron">
-        <div className="text-right">
-          <Link className="btn btn-primary" to="/bucketlists/new">
-            Add a bucketlist
-          </Link>
+      <div className="container">
+        <div className="jumbotron">
+          <div className="text-right">
+            <Link className="btn btn-primary" to="/bucketlists/new">
+              Add a bucketlist
+            </Link>
+          </div>
+          <h3>Bucketlists table</h3>
+          <table className="table table-bordered">
+            <tbody>
+              {this.renderBucketlists()}
+            </tbody>
+          </table>
         </div>
-        <h3>Bucketlists table</h3>
-        <table className="table table-bordered">
-          <tbody>
-            {this.renderBucketlists()}
-          </tbody>
-        </table>
       </div>
 
     );
