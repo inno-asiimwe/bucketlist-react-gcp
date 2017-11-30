@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import { Field, reduxForm, reset } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { registerUser } from '../actions';
@@ -29,6 +29,9 @@ class RegisterUser extends Component {
     this.props.registerUser(values);
   }
   render() {
+    if (!this.props.auth.loaded) {
+      return <div>Loading...</div>;
+    }
     if (this.props.auth.Authenticated) {
       return <Redirect to="/" />;
     }

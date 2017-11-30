@@ -15,6 +15,11 @@ export const GET_BUCKETLIST = 'get_bucketlist';
 export const GET_BUCKETLIST_SUCCESS = 'get_bucketlist_SUCCESS';
 export const EDIT_BUCKETLIST = 'edit_bucketlist';
 export const EDIT_BUCKETLIST_SUCCESS = 'edit_bucketlist_SUCCESS';
+export const ADD_BUCKETLIST_ITEM = 'add_bucketlist_item';
+export const ADD_BUCKETLIST_ITEM_SUCCESS = 'add_bucketlist_item_SUCCESS';
+export const DELETE_BUCKETLIST_ITEM = 'delete_bucketlist_item';
+export const DELETE_BUCKETLIST_ITEM_SUCCESS = 'delete_bucketlist_item_SUCCESS';
+export const EDIT_BUCKETLIST_ITEM = 'edit_bucketlist_item';
 
 export function getBucketlists() {
   const request = instance.get('/v1/bucketlists');
@@ -52,6 +57,31 @@ export function editBucketlist(id, values, callback) {
   const request = instance.put(`/v1/bucketlists/${id}`, values).then(() => callback());
   return {
     type: EDIT_BUCKETLIST,
+    payload: request
+  };
+}
+
+export function addBucketlistItem(id, values, callback) {
+  const request = instance.post(`/v1/bucketlists/${id}/items`, values).then(() => callback());
+  return {
+    type: ADD_BUCKETLIST_ITEM,
+    payload: request
+  };
+}
+
+export function deleteBucketlistItem(bucketlistId, itemId, callback) {
+  const request = instance.delete(`/v1/bucketlists/${bucketlistId}/items/${itemId}`)
+    .then(() => callback());
+  return {
+    type: DELETE_BUCKETLIST_ITEM,
+    payload: request
+  };
+}
+
+export function editItem(bucketlistId, itemId, values, callback) {
+  const request = instance.put(`/v1/bucketlists/${bucketlistId}/items/${itemId}`, values).then(() => callback());
+  return {
+    type: EDIT_BUCKETLIST_ITEM,
     payload: request
   };
 }

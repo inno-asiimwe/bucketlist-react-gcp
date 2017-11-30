@@ -33,6 +33,8 @@ class EditBucketlist extends Component {
            <UpdateBucketlistForm
              initialValues={{ name, description }}
              onSubmit={this.onSubmit}
+             entity="Bucketlist"
+             returnTo="/"
            />
       </div>
     );

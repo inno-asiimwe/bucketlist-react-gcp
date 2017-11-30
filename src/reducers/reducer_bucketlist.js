@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { GET_BUCKETLISTS_SUCCESS, DELETE_BUCKETLIST_SUCCESS, GET_BUCKETLIST_SUCCESS } from '../actions/action_bucketlist';
+import { GET_BUCKETLISTS_SUCCESS, DELETE_BUCKETLIST_SUCCESS, GET_BUCKETLIST_SUCCESS, DELETE_BUCKETLIST_ITEM_SUCCESS } from '../actions/action_bucketlist';
 
 const initialState = { current: { name: '', description: '' } };
 export default function (state = initialState, action) {
@@ -9,7 +9,13 @@ export default function (state = initialState, action) {
     case DELETE_BUCKETLIST_SUCCESS:
       return _.omit(state, action.payload.data.bucketlist);
     case GET_BUCKETLIST_SUCCESS:
-      return { ...state, [action.payload.data.id]: action.payload.data, current: action.payload.data };
+      return {
+        ...state,
+        [action.payload.data.id]: action.payload.data,
+        current: action.payload.data
+      };
+    case DELETE_BUCKETLIST_ITEM_SUCCESS:
+      return state;
     default:
       return state;
   }
