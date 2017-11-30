@@ -1,30 +1,35 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { logoutUser } from '../actions/action_auth';
-import BucketLists from '../containers/BucketLists';
+import { Provider } from 'react-redux';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import store from '../config/store';
+import Home from './Home';
+import RegisterUser from '../containers/SignupForm';
+import LoginUser from '../containers/LoginForm';
+import NewBucketlist from '../containers/NewBucketlist';
+import EditBucketlist from '../containers/EditBucketlist';
+import ShowBucketlist from '../containers/Bucketlist';
+import NewItem from '../containers/NewBucketlistItem';
+import EditBucketlistItem from '../containers/EditBucketlistItem';
+import Nav from './NavBar';
+import Logout from '../containers/Logout';
 
-
-const App = (props) => {
-  if (!props.auth.loaded) {
-    return <div>Loading...</div>;
-  }
-  if (!props.auth.Authenticated) {
-    return <Redirect to="/login" />;
-  }
-  return (
-    <div>
-      <button onClick={() => props.logoutUser(() => props.history.push('/'))}>
-        Logout
-      </button>
-      <BucketLists />
-    </div>
-  );
-};
-function mapStateToProps(state) {
-  return {
-    auth: state.auth
-  };
-}
-
-export default connect(mapStateToProps, { logoutUser })(App);
+const App = () => (
+  <Provider store={store}>
+    <BrowserRouter>
+      <div>
+        <Switch>
+          <Route path="/bucketlists/:id/:itemid/edit" component={EditBucketlistItem} />
+          <Route exact path="/bucketlists/new" component={NewBucketlist} />
+          <Route exact path="/bucketlists/:id/edit" component={EditBucketlist} />
+          <Route path="/bucketlists/:id/new" component={NewItem} />
+          <Route path="/bucketlists/:id" component={ShowBucketlist} />
+          <Route path="/register" component={RegisterUser} />
+          <Route path="/login" component={LoginUser} />
+          <Route path="/logout" component={Logout} />
+          <Route path="/" component={Home} />
+        </Switch>
+      </div>
+    </BrowserRouter>
+  </Provider>
+);
+export default App;
