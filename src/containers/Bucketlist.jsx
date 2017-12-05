@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import { getBucketlist, deleteBucketlistItem } from '../actions/action_bucketlist';
 
-class ShowBucketlist extends Component {
+export class ShowBucketlist extends Component {
   constructor(props) {
     super(props);
     this.onDelete = this.onDelete.bind(this);
