@@ -6,7 +6,7 @@ import { ShowBucketlist } from '../../containers/Bucketlist';
 
 describe('ShowBucketlist', () => {
   it('Matches its snapshot', () => {
-    const output = shallow(<ShowBucketlist match = {{params:{id:1}}} getBucketlist = {() => {}}/>);
+    const output = shallow(<ShowBucketlist match={{ params: { id: 1 } }} getBucketlist={() => {}} />);
     expect(shallowToJson(output)).toMatchSnapshot();
   });
 });

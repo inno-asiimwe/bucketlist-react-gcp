@@ -6,7 +6,7 @@ import { LoginUser } from '../../containers/LoginForm';
 
 describe('LoginForm', () => {
   it('Matches its snapshot', () => {
-    const output = shallow(<LoginUser auth={{Authenticated: false}} handleSubmit={() => {}}/>)
+    const output = shallow(<LoginUser auth={{ Authenticated: false }} handleSubmit={() => {}} />);
     expect(shallowToJson(output)).toMatchSnapshot();
   });
 });

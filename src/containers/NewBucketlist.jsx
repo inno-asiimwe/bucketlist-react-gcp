@@ -23,7 +23,7 @@ function renderField(field) {
     </div>
   );
 }
-class NewBucketlist extends Component {
+export class NewBucketlist extends Component {
   constructor(props) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);

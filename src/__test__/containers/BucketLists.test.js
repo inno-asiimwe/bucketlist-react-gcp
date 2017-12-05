@@ -6,7 +6,7 @@ import { BucketLists } from '../../containers/BucketLists';
 
 describe('Bucketlists', () => {
   it('matches its snapshot', () => {
-    const output = shallow( <BucketLists getBucketlists={() => {}}/>)
+    const output = shallow(<BucketLists getBucketlists={() => {}} />);
     expect(shallowToJson(output)).toMatchSnapshot();
   });
 });
