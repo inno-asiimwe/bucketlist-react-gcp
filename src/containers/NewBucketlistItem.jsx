@@ -23,7 +23,7 @@ function renderField(field) {
     </div>
   );
 }
-class NewItem extends Component {
+export class NewItem extends Component {
   constructor(props) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
