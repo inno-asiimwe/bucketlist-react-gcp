@@ -5,7 +5,7 @@ import { logoutUser } from '../actions/action_auth';
 import BucketLists from '../containers/BucketLists';
 
 
-const Home = (props) => {
+export const Home = (props) => {
   if (!props.auth.loaded) {
     return <div>Loading...</div>;
   }
