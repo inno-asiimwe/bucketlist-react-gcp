@@ -5,7 +5,7 @@ import { getBucketlist, editBucketlist } from '../actions/action_bucketlist';
 import UpdateBucketlistForm from '../components/UpdateBucketList';
 
 
-class EditBucketlist extends Component {
+export class EditBucketlist extends Component {
   constructor(props) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
