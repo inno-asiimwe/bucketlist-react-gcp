@@ -99,4 +99,21 @@ describe('bucketlist_actions', () => {
       expect(actionTypes).toEqual(actionsExpected);
     });
   });
+  it('dispatches add_bucketlist_item_success', () => {
+    const id = 1;
+    const data = { name: 'Tour Paris', description: 'Go for vacation in paris' };
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 201
+      });
+    });
+    const actionsExpected = ['add_bucketlist_item_REQUEST', 'add_bucketlist_item_SUCCESS'];
+    const store = mockStore({});
+    return store.dispatch(actions.addBucketlistItem(id, data, () => {})).then(() => {
+      const actionsDispatched = store.getActions();
+      const actionTypes = actionsDispatched.map(action => action.type);
+      expect(actionTypes).toEqual(actionsExpected);
+    });
+  });
 });
