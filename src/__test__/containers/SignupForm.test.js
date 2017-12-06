@@ -6,7 +6,7 @@ import RegisterUser from '../../containers/SignupForm';
 
 describe('RegisterUser', () => {
   it('Matches its snapshot', () => {
-    const output = shallow(<RegisterUser />)
+    const output = shallow(<RegisterUser />);
     expect(shallowToJson(output)).toMatchSnapshot();
   });
 });

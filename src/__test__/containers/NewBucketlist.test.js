@@ -6,7 +6,7 @@ import { NewBucketlist } from '../../containers/NewBucketlist';
 
 describe('NewBucketlist', () => {
   it('Matches its snapshot', () => {
-    const output = shallow(<NewBucketlist handleSubmit={() => {}}/>);
+    const output = shallow(<NewBucketlist handleSubmit={() => {}} />);
     expect(shallowToJson(output)).toMatchSnapshot();
   });
 });

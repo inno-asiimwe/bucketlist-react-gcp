@@ -6,7 +6,10 @@ import { EditBucketlist } from '../../containers/EditBucketlist';
 
 describe('EditBucketlist', () => {
   it('It matches its snapshot', () => {
-    const output = shallow(<EditBucketlist match={{ params: { id: 1 } }} getBucketlist={() => {}} />);
+    const output = shallow(<EditBucketlist
+      match={{ params: { id: 1 } }}
+      getBucketlist={() => {}}
+    />);
     expect(shallowToJson(output)).toMatchSnapshot();
   });
 });
