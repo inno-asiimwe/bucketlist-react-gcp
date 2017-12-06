@@ -133,4 +133,22 @@ describe('bucketlist_actions', () => {
       expect(actionTypes).toEqual(actionsExpected);
     });
   });
+  it('it dispatches edit_item_SUCCESS and edit_item_REQUEST', () => {
+    const itemId = 1;
+    const bucketlistId = 1;
+    const data = { name: 'Build a house', description: 'Build a house' };
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 200
+      });
+    });
+    const actionsExpected = ['edit_bucketlist_item_REQUEST', 'edit_bucketlist_item_SUCCESS'];
+    const store = mockStore({});
+    return store.dispatch(actions.editItem(bucketlistId, itemId, data, () => {})).then(() => {
+      const actionsDispatched = store.getActions();
+      const actionTypes = actionsDispatched.map(action => action.type);
+      expect(actionTypes).toEqual(actionsExpected);
+    });
+  });
 });
