@@ -37,7 +37,7 @@ describe('bucketlist_actions', () => {
       description: 'Things to do before I am 60'
     };
     moxios.wait(() => {
-      const request = moxios.request s.mostRecent();
+      const request = moxios.requests.mostRecent();
       request.respondWith({
         status: 201
       });
@@ -45,6 +45,38 @@ describe('bucketlist_actions', () => {
     const actionsExpected = ['add_bucketlist_REQUEST', 'add_bucketlist_SUCCESS'];
     const store = mockStore({});
     return store.dispatch(actions.addBucketlist(data, () => {})).then(() => {
+      const actionsDispatched = store.getActions();
+      const actionTypes = actionsDispatched.map(action => action.type);
+      expect(actionTypes).toEqual(actionsExpected);
+    });
+  });
+  it('it dispatches delete_bucketlist_REQUEST and delete_bucketlist_SUCCESS', () => {
+    const id = 1;
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 200
+      });
+    });
+    const actionsExpected = ['delete_bucketlist_REQUEST', 'delete_bucketlist_SUCCESS'];
+    const store = mockStore({});
+    return store.dispatch(actions.deleteBucketlist(id)).then(() => {
+      const actionsDispatched = store.getActions();
+      const actionTypes = actionsDispatched.map(action => action.type);
+      expect(actionTypes).toEqual(actionsExpected);
+    });
+  });
+  it('it dispatches get_bucketlist_SUCCESS and get_bucketlist_REQUEST', () => {
+    const id = 1;
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 200
+      });
+    });
+    const actionsExpected = ['get_bucketlist_REQUEST', 'get_bucketlist_SUCCESS'];
+    const store = mockStore({});
+    return store.dispatch(actions.getBucketlist(id)).then(() => {
       const actionsDispatched = store.getActions();
       const actionTypes = actionsDispatched.map(action => action.type);
       expect(actionTypes).toEqual(actionsExpected);
