@@ -116,4 +116,21 @@ describe('bucketlist_actions', () => {
       expect(actionTypes).toEqual(actionsExpected);
     });
   });
+  it('dispatches delete_bucketlist_item_SUCCESS and delete_bucketlist_item_REQUEST', () => {
+    const itemId = 1;
+    const bucketlistId = 1;
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 200
+      });
+    });
+    const actionsExpected = ['delete_bucketlist_item_REQUEST', 'delete_bucketlist_item_SUCCESS'];
+    const store = mockStore({});
+    return store.dispatch(actions.deleteBucketlistItem(bucketlistId, itemId, () => {})).then(() => {
+      const actionsDispatched = store.getActions();
+      const actionTypes = actionsDispatched.map(action => action.type);
+      expect(actionTypes).toEqual(actionsExpected);
+    });
+  });
 });
