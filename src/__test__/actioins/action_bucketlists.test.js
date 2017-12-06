@@ -82,4 +82,21 @@ describe('bucketlist_actions', () => {
       expect(actionTypes).toEqual(actionsExpected);
     });
   });
+  it('it dispatches edit_bucketlist_REQUEST and edit_bucketlist_SUCCESS', () => {
+    const id = 1;
+    const data = { name: 'Before 50', description: 'Things to do before 50' };
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 200
+      });
+    });
+    const actionsExpected = ['edit_bucketlist_REQUEST', 'edit_bucketlist_SUCCESS'];
+    const store = mockStore({});
+    return store.dispatch(actions.editBucketlist(id, data, () => {})).then(() => {
+      const actionsDispatched = store.getActions();
+      const actionTypes = actionsDispatched.map(action => action.type);
+      expect(actionTypes).toEqual(actionsExpected);
+    });
+  });
 });
