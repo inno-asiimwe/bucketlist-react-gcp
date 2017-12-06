@@ -16,4 +16,31 @@ describe('auth_actions', () => {
   afterEach(() => {
     moxios.uninstall(instance);
   });
+  it('dispatches register_REQUEST and register_SUCCESS', () => {
+    const data = {
+      firstname: 'Asiimwe',
+      lastname: 'Innocent',
+      username: 'inno',
+      password: 'pass',
+      email: 'asiimwe@test.com'
+    };
+    const payload = {
+      message: 'Successfully registered!',
+      status: 'Success'
+    };
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 201,
+        response: payload
+      });
+    });
+    const actionsExpected = ['register_REQUEST', 'register_SUCCESS'];
+    const store = mockStore({});
+    return store.dispatch(actions.registerUser(data)).then(() => {
+      const actionsDispatched = store.getActions();
+      const actionTypes = actionsDispatched.map(action => action.type);
+      expect(actionTypes).toEqual(actionsExpected);
+    });
+  });
 });
