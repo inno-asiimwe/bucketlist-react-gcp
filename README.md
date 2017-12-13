@@ -1,3 +1,4 @@
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 [![Coverage Status](https://coveralls.io/repos/github/inno-asiimwe/bucketlist-react-client/badge.svg?branch=ch-write-tests-153302352)](https://coveralls.io/github/inno-asiimwe/bucketlist-react-client?branch=develop)
 [![Build Status](https://travis-ci.org/inno-asiimwe/bucketlist-react-client.svg?branch=develop)](https://travis-ci.org/inno-asiimwe/bucketlist-react-client)
+[![Maintainability](https://api.codeclimate.com/v1/badges/0b7c3dba5ba2b0d047b9/maintainability)](https://codeclimate.com/github/inno-asiimwe/bucketlist-react-client/maintainability)
