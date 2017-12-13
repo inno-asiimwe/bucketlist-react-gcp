@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Bucketlists matches its snapshot 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="jumbotron"
+  >
+    <div
+      className="text-right"
+    >
+      <Link
+        className="btn btn-primary"
+        replace={false}
+        to="/bucketlists/new"
+      >
+        Add a bucketlist
+      </Link>
+    </div>
+    <h3>
+      Bucketlists table
+    </h3>
+    <table
+      className="table table-bordered"
+    >
+      <tbody />
+    </table>
+  </div>
+</div>
+`;

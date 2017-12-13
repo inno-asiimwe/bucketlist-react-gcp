@@ -24,7 +24,7 @@ function renderField(field) {
     </div>
   );
 }
-class RegisterUser extends Component {
+export class RegisterUser extends Component {
   onSubmit(values) {
     this.props.registerUser(values);
   }

@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginForm Matches its snapshot 1`] = `
+<div
+  className="container"
+>
+  <h3>
+     Login 
+  </h3>
+  <br />
+  <form>
+    <Field
+      component={[Function]}
+      label="Username"
+      name="username"
+      typoe="input"
+    />
+    <Field
+      component={[Function]}
+      label="Password"
+      name="password"
+      type="password"
+    />
+    <button
+      className="btn btn-primary"
+      type="submit"
+    >
+      Submit
+    </button>
+    <Link
+      className="btn btn-danger"
+      replace={false}
+      to="/"
+    >
+      Cancel
+    </Link>
+  </form>
+</div>
+`;

@@ -11,7 +11,7 @@ function renderField(field) {
   const className = `form-group row ${touched && error ? 'has-danger' : ''}`;
   return (
     <div className={className}>
-      <label>{field.label}</label>
+      <label>{field.label}</label> {/* eslint-disable-line react/jsx-label-has-for */}
       <input
         className="form-control"
         type={field.type}
@@ -23,7 +23,7 @@ function renderField(field) {
     </div>
   );
 }
-class NewBucketlist extends Component {
+export class NewBucketlist extends Component {
   constructor(props) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);

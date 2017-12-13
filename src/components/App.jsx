@@ -10,7 +10,7 @@ import EditBucketlist from '../containers/EditBucketlist';
 import ShowBucketlist from '../containers/Bucketlist';
 import NewItem from '../containers/NewBucketlistItem';
 import EditBucketlistItem from '../containers/EditBucketlistItem';
-import Nav from './NavBar';
+// import Nav from './NavBar';
 import Logout from '../containers/Logout';
 
 const App = () => (
