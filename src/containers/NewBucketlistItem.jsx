@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { addBucketlistItem } from '../actions';
 
 const FIELDS = ['name', 'description'];
@@ -35,6 +35,9 @@ export class NewItem extends Component {
     });
   }
   render() {
+    if (!this.props.auth.Authenticated) {
+      return <Redirect to="/login" />;
+    }
     const { handleSubmit } = this.props;
     const { id } = this.props.match.params;
     return (
@@ -74,7 +77,11 @@ function validate(values) {
   return errors;
 }
 
+function mapStateToProps(state) {
+  return { auth: state.auth };
+}
+
 export default reduxForm({
   validate,
   form: 'NewItemForm'
-})(connect(null, { addBucketlistItem })(NewItem));
+})(connect(mapStateToProps, { addBucketlistItem })(NewItem));

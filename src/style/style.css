@@ -15,3 +15,8 @@ div h3 {
 table {
     display: table;
 }
+.navbar-dark .navbar-nav button.nav-link{
+    color: #fff;
+    background-color: #008cba;
+    border: none;
+}

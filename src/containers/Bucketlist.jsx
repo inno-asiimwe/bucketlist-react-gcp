@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import _ from 'lodash';
 import { getBucketlist, deleteBucketlistItem } from '../actions/action_bucketlist';
 
@@ -42,6 +42,10 @@ export class ShowBucketlist extends Component {
   render() {
     const { bucketlist } = this.props;
 
+    if (!this.props.auth.Authenticated) {
+      return <Redirect to="/login" />;
+    }
+
     if (!bucketlist) {
       return <div>Loading ...</div>;
     }
@@ -75,6 +79,6 @@ export class ShowBucketlist extends Component {
   }
 }
 function mapStateToProps(state, ownProps) {
-  return { bucketlist: state.bucketlists[ownProps.match.params.id] };
+  return { bucketlist: state.bucketlists[ownProps.match.params.id], auth: state.auth };
 }
 export default connect(mapStateToProps, { getBucketlist, deleteBucketlistItem })(ShowBucketlist);

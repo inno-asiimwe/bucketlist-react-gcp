@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import { getBucketlist, editItem } from '../actions/action_bucketlist';
 import UpdateBucketlistForm from '../components/UpdateBucketList';
@@ -22,12 +23,19 @@ export class EditBucketlistItem extends Component {
     });
   }
   render() {
+    if (!this.props.auth.Authenticated) {
+      return <Redirect to="/login" />;
+    }
+
     const { item } = this.props;
+
     if (!item) {
       return <div> Loading...</div>;
     }
+
     const { name } = this.props.item;
     const { description } = this.props.item;
+
     return (
       <div>
            Edit bucketlist Item
@@ -43,7 +51,12 @@ export class EditBucketlistItem extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  return { item: state.bucketlists[ownProps.match.params.id].items[ownProps.match.params.itemid] };
+  return (
+    {
+      item: state.bucketlists[ownProps.match.params.id].items[ownProps.match.params.itemid],
+      auth: state.auth
+    }
+  );
 }
 
 export default connect(mapStateToProps, { getBucketlist, editItem })(EditBucketlistItem);
