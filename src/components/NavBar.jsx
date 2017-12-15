@@ -19,7 +19,7 @@ const Nav = props => (
     </button>
 
     <div className="collapse navbar-collapse" id="navbarColor01">
-      <ul className="navbar-nav mr-auto navbar-right">
+      <ul className="navbar-nav ml-auto navbar-right">
         <li className="nav-item active">
           <NavLink
             className="nav-link"
@@ -43,10 +43,11 @@ const Nav = props => (
         }
         </li>
       </ul>
+      { props.auth.Authenticated &&
       <form className="form-inline my-2 my-lg-0">
         <input className="form-control mr-sm-2" type="text" placeholder="Search" />
-        <button className="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
       </form>
+      }
     </div>
   </nav>
 );
