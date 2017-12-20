@@ -2,11 +2,6 @@
 
 exports[`Home matches snapshot 1`] = `
 <div>
-  <button
-    onClick={[Function]}
-  >
-    Logout
-  </button>
   <Connect(BucketLists) />
 </div>
 `;

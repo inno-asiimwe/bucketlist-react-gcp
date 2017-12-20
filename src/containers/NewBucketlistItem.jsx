@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import { addBucketlistItem } from '../actions';
 
 const FIELDS = ['name', 'description'];
@@ -31,8 +32,14 @@ export class NewItem extends Component {
   onSubmit(values) {
     const { id } = this.props.match.params;
     this.props.addBucketlistItem(id, values, () => {
-      this.props.history.push(`/bucketlists/${id}`);
-    });
+      this.notify_success(id);
+    }, () => {this.notify_error()});
+  }
+  notify_success = (id) => {
+    toast.success("Item has been added to the bucketlist", {onClose: () => {this.props.history.push(`/bucketlists/${id}`)}, autoClose: 1000});
+  }
+  notify_error = () => {
+    toast.error("Item not added ensure name is unique");
   }
   render() {
     if (!this.props.auth.Authenticated) {
@@ -42,6 +49,7 @@ export class NewItem extends Component {
     const { id } = this.props.match.params;
     return (
       <div className="container">
+      <ToastContainer />
         <h3> New Bucketlist Item</h3>
         <br />
         <form onSubmit={handleSubmit(this.onSubmit)}>

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import _ from 'lodash';
+import { clearMessages } from '../actions/action_auth';
 import { getBucketlists, deleteBucketlist } from '../actions/action_bucketlist';
 
 export class BucketLists extends Component {
@@ -9,12 +11,16 @@ export class BucketLists extends Component {
     super(props);
     this.renderBucketlists = this.renderBucketlists.bind(this);
     this.onDelete = this.onDelete.bind(this);
+    this.notify = this.notify.bind(this);
   }
   componentDidMount() {
     this.props.getBucketlists();
   }
   onDelete(id) {
     this.props.deleteBucketlist(id);
+  }
+  notify = (msg) => {
+    toast(msg);
   }
   renderBucketlists() {
     return _.map(this.props.bucketlists, bucketlist => (
@@ -43,8 +49,13 @@ export class BucketLists extends Component {
     ));
   }
   render() {
+    if (this.props.auth.success) {
+      this.notify(this.props.auth.success_msg);
+      this.props.clearMessages();
+    }
     return (
       <div className="container">
+        <ToastContainer />
         <div className="jumbotron">
           <div className="text-right">
             <Link className="btn btn-primary" to="/bucketlists/new">
@@ -64,9 +75,9 @@ export class BucketLists extends Component {
   }
 }
 function mapStateToProps(state) {
-  return { bucketlists: state.bucketlists };
+  return { bucketlists: state.bucketlists, auth: state.auth };
 }
 export default connect(
   mapStateToProps,
-  { getBucketlists, deleteBucketlist }
+  { getBucketlists, deleteBucketlist, clearMessages }
 )(BucketLists);

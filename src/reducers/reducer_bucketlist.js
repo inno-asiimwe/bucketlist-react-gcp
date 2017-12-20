@@ -1,5 +1,10 @@
 import _ from 'lodash';
-import { GET_BUCKETLISTS_SUCCESS, DELETE_BUCKETLIST_SUCCESS, GET_BUCKETLIST_SUCCESS, DELETE_BUCKETLIST_ITEM_SUCCESS } from '../actions/action_bucketlist';
+import {
+  GET_BUCKETLISTS_SUCCESS,
+  DELETE_BUCKETLIST_SUCCESS,
+  GET_BUCKETLIST_SUCCESS,
+  DELETE_BUCKETLIST_ITEM_SUCCESS
+} from '../actions/action_bucketlist';
 
 export const initialState = { };
 export default (state = initialState, action) => {

@@ -14,6 +14,7 @@ exports[`App matches snapshot 1`] = `
 >
   <BrowserRouter>
     <div>
+      <Connect(Nav) />
       <Switch>
         <Route
           component={[Function]}
