@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import _ from 'lodash';
 import { clearMessages } from '../actions/action_auth';
 import { getBucketlists, deleteBucketlist } from '../actions/action_bucketlist';
+import Paginate from '../components/paginate';
 
 export class BucketLists extends Component {
   constructor(props) {
@@ -12,15 +13,23 @@ export class BucketLists extends Component {
     this.renderBucketlists = this.renderBucketlists.bind(this);
     this.onDelete = this.onDelete.bind(this);
     this.notify = this.notify.bind(this);
+    this.toNextPage = this.toNextPage.bind(this);
+    this.toPrevPage = this.toPrevPage.bind(this);
   }
   componentDidMount() {
-    this.props.getBucketlists();
+    this.props.getBucketlists(this.props.current);
   }
   onDelete(id) {
-    this.props.deleteBucketlist(id);
+    this.props.deleteBucketlist(id, () => this.props.getBucketlists(this.props.current));
   }
   notify = (msg) => {
     toast(msg);
+  }
+  toNextPage() {
+    this.props.getBucketlists(this.props.next);
+  }
+  toPrevPage() {
+    this.props.getBucketlists(this.props.prev)
   }
   renderBucketlists() {
     return _.map(this.props.bucketlists, bucketlist => (
@@ -68,6 +77,12 @@ export class BucketLists extends Component {
               {this.renderBucketlists()}
             </tbody>
           </table>
+          <Paginate 
+            page={this.props.current}
+            pages={this.props.pages}
+            onNext={this.toNextPage}
+            onPrev={this.toPrevPage}
+          />
         </div>
       </div>
 
@@ -75,7 +90,14 @@ export class BucketLists extends Component {
   }
 }
 function mapStateToProps(state) {
-  return { bucketlists: state.bucketlists, auth: state.auth };
+  return {
+    bucketlists: state.bucketlists.items,
+    auth: state.auth,
+    pages: state.bucketlists.totalpages,
+    current: state.bucketlists.currentpage,
+    next: state.bucketlists.nextpage,
+    prev: state.bucketlists.prevpage
+   };
 }
 export default connect(
   mapStateToProps,

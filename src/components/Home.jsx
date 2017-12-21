@@ -14,7 +14,7 @@ export const Home = (props) => {
   }
   return (
     <div>
-      <BucketLists />
+      <BucketLists callback={() => this.props.history.push('/')} />
     </div>
   );
 };
