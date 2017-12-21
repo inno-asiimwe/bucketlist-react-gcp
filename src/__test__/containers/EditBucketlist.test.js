@@ -9,6 +9,7 @@ describe('EditBucketlist', () => {
     const output = shallow(<EditBucketlist
       match={{ params: { id: 1 } }}
       getBucketlist={() => {}}
+      auth={{ Authenticated: true }}
     />);
     expect(shallowToJson(output)).toMatchSnapshot();
   });

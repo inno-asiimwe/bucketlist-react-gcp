@@ -7,8 +7,9 @@ describe('Auth Reducers', () => {
       payload: { data: { message: 'Successfully registered', status: 'success' } }
     })).toEqual({
       ...initialState,
-      response: { message: 'Successfully registered', status: 'success' },
+      response: {},
       loading: false,
+      success: true,
       loaded: true
     });
   });
@@ -26,7 +27,13 @@ describe('Auth Reducers', () => {
       payload: { response: { data: { message: 'Failed', status: 'Failed' } } }
     })).toEqual({
       ...initialState,
-      response: { message: 'Failed', status: 'Failed' }
+      response: { message: 'Failed', status: 'Failed' },
+      loading: false,
+      error: true,
+      loaded: true,
+      success: false,
+      success_msg: null,
+      error_msg: 'Failed'
     });
   });
   it('it updates state on login request', () => {
@@ -40,23 +47,33 @@ describe('Auth Reducers', () => {
   it('it updates state on login success', () => {
     expect(reducer(initialState, {
       type: 'login_SUCCESS',
-      payload: { data: { auth_token: 'token' } }
+      payload: { data: { auth_token: 'token', message: 'Success' } }
     })).toEqual({
       ...initialState,
-      loaded: true,
-      loading: false,
       Authenticated: true,
+      loading: false,
+      loaded: true,
+      success: true,
+      error: false,
+      error_msg: null,
+      success_msg: 'Success',
       token: 'token',
-      response: { auth_token: 'token' }
+      response: { auth_token: 'token', message: 'Success' }
     });
   });
   it('it updates state on login error', () => {
     expect(reducer(initialState, {
       type: 'login_ERROR',
-      payload: { response: { data: { } } }
+      payload: { response: { data: { message: 'Error' } } }
     })).toEqual({
       ...initialState,
+      response: { response: { data: { message: 'Error' } } },
       loading: false,
+      loaded: true,
+      success: false,
+      error: true,
+      error_msg: 'Error',
+      success_msg: null
     });
   });
   it('it updates state on logout request', () => {
@@ -64,7 +81,12 @@ describe('Auth Reducers', () => {
       type: 'logout_REQUEST',
     })).toEqual({
       ...initialState,
-      loading: true
+      loading: true,
+      loaded: false,
+      success: false,
+      error: false,
+      success_msg: null,
+      error_msg: null
     });
   });
   it('it updates state on logout SUCCESS', () => {
@@ -73,8 +95,14 @@ describe('Auth Reducers', () => {
       payload: { data: { message: 'Successfully logged out', status: 'Success' } }
     })).toEqual({
       ...initialState,
-      response: { message: 'Successfully logged out', status: 'Success' },
+      response: {},
+      Authenticated: false,
       loading: false,
+      loaded: true,
+      error: false,
+      success: true,
+      error_msg: null,
+      success_msg: null,
       token: ''
     });
   });
@@ -84,7 +112,13 @@ describe('Auth Reducers', () => {
       payload: { response: { data: { message: 'Failed to logout', status: 'Failed' } } }
     })).toEqual({
       ...initialState,
-      response: { message: 'Failed to logout', status: 'Failed' }
+      response: { response: { data: { message: 'Failed to logout', status: 'Failed' } } },
+      loading: false,
+      loaded: true,
+      error: true,
+      success: false,
+      success_msg: null,
+      error_msg: null
     });
   });
 });
