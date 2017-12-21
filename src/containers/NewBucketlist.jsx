@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import { addBucketlist } from '../actions';
 
 const FIELDS = ['name', 'description'];
@@ -30,13 +31,23 @@ export class NewBucketlist extends Component {
   }
   onSubmit(values) {
     this.props.addBucketlist(values, () => {
-      this.props.history.push('/');
-    });
+      this.notify_success();
+    }, () => {this.notify_error()});
+  }
+  notify_success = () => {
+    toast.success("New Bucketlist created", {onClose: () => {this.props.history.push('/')}, autoClose: 1000});
+  }
+  notify_error = () => {
+    toast.error("Bucketlist not created Ensure name is unique")
   }
   render() {
+    if (!this.props.auth.Authenticated) {
+      return <Redirect to="/login" />;
+    }
     const { handleSubmit } = this.props;
     return (
       <div className="container">
+      <ToastContainer />
         <h3> New Bucketlist</h3>
         <br />
         <form onSubmit={handleSubmit(this.onSubmit)}>
@@ -71,8 +82,10 @@ function validate(values) {
   });
   return errors;
 }
-
+function mapStateToProps(state) {
+  return { auth: state.auth };
+}
 export default reduxForm({
   validate,
   form: 'NewBucketlistForm'
-})(connect(null, { addBucketlist })(NewBucketlist));
+})(connect(mapStateToProps, { addBucketlist })(NewBucketlist));

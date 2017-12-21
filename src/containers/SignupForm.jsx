@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, reset } from 'redux-form';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import { registerUser } from '../actions';
+import { ToastContainer, toast } from 'react-toastify';
+
+import { registerUser, clearMessages } from '../actions';
 
 const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const FIELDS = ['firstname', 'lastname', 'username', 'password', 'cpassword', 'email'];
@@ -26,7 +28,13 @@ function renderField(field) {
 }
 export class RegisterUser extends Component {
   onSubmit(values) {
-    this.props.registerUser(values);
+    this.props.registerUser(values, () => {this.notify_sucess("Successfully Registered");});
+  }
+  notify_sucess = (msg) => {
+    toast.success(msg, {onClose: () => {this.props.history.push('/')}});
+  }
+  notify_error = (msg) => {
+    toast.error(msg)
   }
   render() {
     if (!this.props.auth.loaded) {
@@ -35,9 +43,14 @@ export class RegisterUser extends Component {
     if (this.props.auth.Authenticated) {
       return <Redirect to="/" />;
     }
+    if(this.props.auth.error) {
+      this.notify_error(this.props.auth.error_msg);
+      this.props.clearMessages();
+    }
     const { handleSubmit } = this.props;
     return (
       <div className="container">
+        <ToastContainer />
         <h3> Register </h3>
         <br />
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
@@ -113,4 +126,4 @@ function mapStateToProps(state) {
 export default reduxForm({
   validate,
   form: 'RegisterForm'
-})(connect(mapStateToProps, { registerUser })(RegisterUser));
+})(connect(mapStateToProps, { registerUser, clearMessages })(RegisterUser));

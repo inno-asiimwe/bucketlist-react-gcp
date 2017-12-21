@@ -4,7 +4,7 @@ import { logoutUser } from '../actions/action_auth';
 
 
 class Logout extends Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.logoutUser(() => { this.props.history.push('/login'); });
   }
   render() {

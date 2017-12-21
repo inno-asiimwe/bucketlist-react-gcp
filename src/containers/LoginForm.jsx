@@ -3,7 +3,8 @@ import _ from 'lodash';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import { loginUser } from '../actions';
+import { ToastContainer, toast } from 'react-toastify';
+import { loginUser, clearMessages } from '../actions';
 
 const FIELDS = ['username', 'password'];
 function renderField(field) {
@@ -31,13 +32,29 @@ export class LoginUser extends Component {
   onSubmit(values) {
     this.props.loginUser(values);
   }
+  notify_error = (msg) => {
+    toast.error(msg);
+  }
+  notify_success = (msg) => {
+    toast.success(msg)
+  }
+
   render() {
-    if (this.props.auth.Authenticated) {
+    if (this.props.auth.success && this.props.auth.Authenticated) {
+      this.notify_success(this.props.auth.success_msg)
+      this.props.clearMessages()
+    }
+    if (this.props.auth.Authenticated ) {
       return <Redirect to="/" />;
+    } 
+    else if (this.props.auth.error) {
+      this.notify_error(this.props.auth.error_msg)
+      this.props.clearMessages();
     }
     const { handleSubmit } = this.props;
     return (
       <div className="container">
+        <ToastContainer />
         <h3> Login </h3>
         <br />
         <form onSubmit={handleSubmit(this.onSubmit)}>
@@ -78,4 +95,4 @@ function mapStateToProps(state) {
 export default reduxForm({
   validate,
   form: 'LoginForm'
-})(connect(mapStateToProps, { loginUser })(LoginUser));
+})(connect(mapStateToProps, { loginUser, clearMessages })(LoginUser));

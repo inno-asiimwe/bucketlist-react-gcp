@@ -1,13 +1,33 @@
 import _ from 'lodash';
-import { GET_BUCKETLISTS_SUCCESS, DELETE_BUCKETLIST_SUCCESS, GET_BUCKETLIST_SUCCESS, DELETE_BUCKETLIST_ITEM_SUCCESS } from '../actions/action_bucketlist';
+import {
+  GET_BUCKETLISTS_SUCCESS,
+  DELETE_BUCKETLIST_SUCCESS,
+  GET_BUCKETLIST_SUCCESS,
+  DELETE_BUCKETLIST_ITEM_SUCCESS,
+  SEARCH_BUCKETLISTS_SUCCESS
+} from '../actions/action_bucketlist';
 
-export const initialState = { };
+export const initialState = { currentpage: 1 };
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_BUCKETLISTS_SUCCESS:
-      return _.mapKeys(action.payload.data, 'id');
+      return {
+        items: _.mapKeys(action.payload.data.items, 'id'),
+        totalpages: action.payload.data.pages,
+        currentpage: action.payload.data.current_page,
+        nextpage: action.payload.data.next_page,
+        prevpage: action.payload.data.prev_page
+      };
+    case SEARCH_BUCKETLISTS_SUCCESS:
+      return {
+        items: _.mapKeys(action.payload.data.items, 'id'),
+        totalpages: action.payload.data.pages,
+        currentpage: action.payload.data.current_page,
+        nextpage: action.payload.data.next_page,
+        prevpage: action.payload.data.prev_page
+      };
     case DELETE_BUCKETLIST_SUCCESS:
-      return _.omit(state, action.payload.data.bucketlist);
+      return state;
     case GET_BUCKETLIST_SUCCESS:
       return {
         ...state,

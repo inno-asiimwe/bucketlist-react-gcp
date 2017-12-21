@@ -14,10 +14,7 @@ export const Home = (props) => {
   }
   return (
     <div>
-      <button onClick={() => props.logoutUser(() => props.history.push('/'))}>
-        Logout
-      </button>
-      <BucketLists />
+      <BucketLists callback={() => this.props.history.push('/')} />
     </div>
   );
 };

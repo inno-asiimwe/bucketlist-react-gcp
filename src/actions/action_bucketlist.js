@@ -1,5 +1,7 @@
+/** Contains action creators concerned with the bucketlists */
 import instance from '../config/axiosConfig';
 
+// Define constants for all the action creator names
 export const GET_BUCKETLISTS = 'get_bucketlists';
 export const GET_BUCKETLISTS_PENDING = 'get_bucketlists_REQUEST';
 export const GET_BUCKETLISTS_SUCCESS = 'get_bucketlists_SUCCESS';
@@ -15,30 +17,51 @@ export const GET_BUCKETLIST = 'get_bucketlist';
 export const GET_BUCKETLIST_SUCCESS = 'get_bucketlist_SUCCESS';
 export const EDIT_BUCKETLIST = 'edit_bucketlist';
 export const EDIT_BUCKETLIST_SUCCESS = 'edit_bucketlist_SUCCESS';
+export const EDIT_BUCKETLIST_ERROR = 'edit_bucketlist_ERROR';
 export const ADD_BUCKETLIST_ITEM = 'add_bucketlist_item';
 export const ADD_BUCKETLIST_ITEM_SUCCESS = 'add_bucketlist_item_SUCCESS';
 export const DELETE_BUCKETLIST_ITEM = 'delete_bucketlist_item';
 export const DELETE_BUCKETLIST_ITEM_SUCCESS = 'delete_bucketlist_item_SUCCESS';
 export const EDIT_BUCKETLIST_ITEM = 'edit_bucketlist_item';
+export const SEARCH_BUCKETLISTS = 'search_bucketlists';
+export const SEARCH_BUCKETLISTS_SUCCESS = 'search_bucketlists_SUCCESS';
+export const SEARCH_BUCKETLISTS_ERROR = 'search_bucketlists_ERROR';
 
-export function getBucketlists() {
-  const request = instance.get('/v1/bucketlists');
+/**
+ * action creator for fetching  bucketlists from the API
+ * @param {number} page - The page to fetch
+ */
+export function getBucketlists(page) {
+  const request = instance.get(`/v1/bucketlists?limit=5&page=${page}`);
   return {
     type: GET_BUCKETLISTS,
     payload: request
   };
 }
 
-export function addBucketlist(values, callback) {
-  const request = instance.post('/v1/bucketlists', values).then(() => callback());
+/**
+ * action creator adds a new bucketlist
+ * @param {object} values - Includes name and description
+ * @param {func} callback - function to be called on success of the action
+ * @param {func} errorHandler - function to be called on failure of the action
+ */
+export function addBucketlist(values, callback, errorHandler) {
+  const request = instance.post('/v1/bucketlists', values)
+    .then(() => callback())
+    .catch(() => errorHandler());
   return {
     type: ADD_BUCKETLIST,
     payload: request
   };
 }
 
-export function deleteBucketlist(id) {
-  const request = instance.delete(`/v1/bucketlists/${id}`);
+/**
+ * action creator for deleting a given bucketlist
+ * @param {number} id - id of the bucketlist to be deleted
+ * @param {func} callback - function executed on successful deletion of bucketlist
+ */
+export function deleteBucketlist(id, callback) {
+  const request = instance.delete(`/v1/bucketlists/${id}`).then(() => callback());
   return {
     type: DELETE_BUCKETLIST,
     payload: request
@@ -53,16 +76,20 @@ export function getBucketlist(id) {
   };
 }
 
-export function editBucketlist(id, values, callback) {
-  const request = instance.put(`/v1/bucketlists/${id}`, values).then(() => callback());
+export function editBucketlist(id, values, callback, errorHandler) {
+  const request = instance.put(`/v1/bucketlists/${id}`, values)
+    .then(() => callback())
+    .catch(() => errorHandler());
   return {
     type: EDIT_BUCKETLIST,
     payload: request
   };
 }
 
-export function addBucketlistItem(id, values, callback) {
-  const request = instance.post(`/v1/bucketlists/${id}/items`, values).then(() => callback());
+export function addBucketlistItem(id, values, callback, errorHandler) {
+  const request = instance.post(`/v1/bucketlists/${id}/items`, values)
+    .then(() => callback())
+    .catch(() => errorHandler());
   return {
     type: ADD_BUCKETLIST_ITEM,
     payload: request
@@ -78,10 +105,20 @@ export function deleteBucketlistItem(bucketlistId, itemId, callback) {
   };
 }
 
-export function editItem(bucketlistId, itemId, values, callback) {
-  const request = instance.put(`/v1/bucketlists/${bucketlistId}/items/${itemId}`, values).then(() => callback());
+export function editItem(bucketlistId, itemId, values, callback, errorHandler) {
+  const request = instance.put(`/v1/bucketlists/${bucketlistId}/items/${itemId}`, values)
+    .then(() => callback())
+    .catch(() => errorHandler());
   return {
     type: EDIT_BUCKETLIST_ITEM,
+    payload: request
+  };
+}
+
+export function searchBucketlists(term) {
+  const request = instance.get(`/v1/bucketlists?limit=5&page=1&q=${term}`);
+  return {
+    type: SEARCH_BUCKETLISTS,
     payload: request
   };
 }

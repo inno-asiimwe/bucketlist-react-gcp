@@ -12,12 +12,13 @@ export const LOGOUT = 'logout';
 export const LOGOUT_PENDING = 'logout_REQUEST';
 export const LOGOUT_SUCCESS = 'logout_SUCCESS';
 export const LOGOUT_ERROR = 'logout_ERROR';
+export const CLEAR_MESSAGES = 'clear';
 
-export function registerUser(values) {
-  const request = instance.post('/v1/auth/register', values);
+export function registerUser(values, callback) {
+  const request = instance.post('/v1/auth/register', values).then(() => callback());
   return {
     type: REGISTER,
-    payload: request
+    payload: request,
   };
 }
 export function loginUser(values) {
@@ -32,5 +33,10 @@ export function logoutUser() {
   return {
     type: LOGOUT,
     payload: request
+  };
+}
+export function clearMessages() {
+  return {
+    type: CLEAR_MESSAGES
   };
 }
