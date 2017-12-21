@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import _ from 'lodash';
 import { clearMessages } from '../actions/action_auth';
-import { getBucketlists, deleteBucketlist } from '../actions/action_bucketlist';
+import { getBucketlists, deleteBucketlist, searchBucketlists } from '../actions/action_bucketlist';
 import Paginate from '../components/paginate';
+import SearchBar from '../containers/SearchBar';
 
 export class BucketLists extends Component {
   constructor(props) {
@@ -29,7 +30,10 @@ export class BucketLists extends Component {
     this.props.getBucketlists(this.props.next);
   }
   toPrevPage() {
-    this.props.getBucketlists(this.props.prev)
+    this.props.getBucketlists(this.props.prev);
+  }
+  bucketlistSearch(term){
+    this.props.searchBucketlists(term);
   }
   renderBucketlists() {
     return _.map(this.props.bucketlists, bucketlist => (
@@ -62,16 +66,25 @@ export class BucketLists extends Component {
       this.notify(this.props.auth.success_msg);
       this.props.clearMessages();
     }
+    const bucketlistSearch = _.debounce((term) => { this.bucketlistSearch(term)}, 300)
     return (
       <div className="container">
         <ToastContainer />
+        <div>
+          <SearchBar onSearchTermChange={bucketlistSearch} />
+        </div>
         <div className="jumbotron">
           <div className="text-right">
             <Link className="btn btn-primary" to="/bucketlists/new">
               Add a bucketlist
             </Link>
           </div>
+          <div className="text-left">
+          </div>
           <h3>Bucketlists table</h3>
+          {this.props.pages == 0 && 
+            <div> No Bucketlists found</div>
+          }
           <table className="table table-bordered">
             <tbody>
               {this.renderBucketlists()}
@@ -101,5 +114,5 @@ function mapStateToProps(state) {
 }
 export default connect(
   mapStateToProps,
-  { getBucketlists, deleteBucketlist, clearMessages }
+  { getBucketlists, deleteBucketlist, clearMessages, searchBucketlists }
 )(BucketLists);

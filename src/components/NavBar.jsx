@@ -1,7 +1,11 @@
+/**
+ * The component facilitates navigation amongest the components. 
+ * */
 import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { logoutUser } from '../actions/action_auth';
+import SearchBar from '../containers/SearchBar';
 
 const Nav = props => (
   <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -43,14 +47,13 @@ const Nav = props => (
         }
         </li>
       </ul>
-      { props.auth.Authenticated &&
-      <form className="form-inline my-2 my-lg-0">
-        <input className="form-control mr-sm-2" type="text" placeholder="Search" />
-      </form>
-      }
+      {/* { props.auth.Authenticated &&
+        <SearchBar />
+      } */}
     </div>
   </nav>
 );
+// connecting the component to the store for its props
 function mapStateToProps(state) {
   return {
     auth: state.auth

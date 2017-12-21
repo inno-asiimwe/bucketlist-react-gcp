@@ -1,5 +1,7 @@
+/** Contains action creators concerned with the bucketlists */
 import instance from '../config/axiosConfig';
 
+// Define constants for all the action creator names
 export const GET_BUCKETLISTS = 'get_bucketlists';
 export const GET_BUCKETLISTS_PENDING = 'get_bucketlists_REQUEST';
 export const GET_BUCKETLISTS_SUCCESS = 'get_bucketlists_SUCCESS';
@@ -21,7 +23,14 @@ export const ADD_BUCKETLIST_ITEM_SUCCESS = 'add_bucketlist_item_SUCCESS';
 export const DELETE_BUCKETLIST_ITEM = 'delete_bucketlist_item';
 export const DELETE_BUCKETLIST_ITEM_SUCCESS = 'delete_bucketlist_item_SUCCESS';
 export const EDIT_BUCKETLIST_ITEM = 'edit_bucketlist_item';
+export const SEARCH_BUCKETLISTS = 'search_bucketlists';
+export const SEARCH_BUCKETLISTS_SUCCESS = 'search_bucketlists_SUCCESS';
+export const SEARCH_BUCKETLISTS_ERROR = 'search_bucketlists_ERROR';
 
+/**
+ * action creator for fetching  bucketlists from the API
+ * @param {number} page - The page to fetch
+ */
 export function getBucketlists(page) {
   const request = instance.get(`/v1/bucketlists?limit=5&page=${page}`);
   return {
@@ -30,6 +39,12 @@ export function getBucketlists(page) {
   };
 }
 
+/**
+ * action creator adds a new bucketlist
+ * @param {object} values - Includes name and description
+ * @param {func} callback - function to be called on success of the action
+ * @param {func} errorHandler - function to be called on failure of the action
+ */
 export function addBucketlist(values, callback, errorHandler) {
   const request = instance.post('/v1/bucketlists', values)
     .then(() => callback())
@@ -40,6 +55,11 @@ export function addBucketlist(values, callback, errorHandler) {
   };
 }
 
+/**
+ * action creator for deleting a given bucketlist
+ * @param {number} id - id of the bucketlist to be deleted
+ * @param {func} callback - function executed on successful deletion of bucketlist
+ */
 export function deleteBucketlist(id, callback) {
   const request = instance.delete(`/v1/bucketlists/${id}`).then(() => callback());
   return {
@@ -91,6 +111,14 @@ export function editItem(bucketlistId, itemId, values, callback, errorHandler) {
     .catch(() => errorHandler());
   return {
     type: EDIT_BUCKETLIST_ITEM,
+    payload: request
+  };
+}
+
+export function searchBucketlists(term) {
+  const request = instance.get(`/v1/bucketlists?limit=5&page=1&q=${term}`);
+  return {
+    type: SEARCH_BUCKETLISTS,
     payload: request
   };
 }
