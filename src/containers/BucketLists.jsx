@@ -1,3 +1,4 @@
+/** Component displays all the bucketlists for a given user */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -17,24 +18,56 @@ export class BucketLists extends Component {
     this.toNextPage = this.toNextPage.bind(this);
     this.toPrevPage = this.toPrevPage.bind(this);
   }
+
   componentDidMount() {
+    // Fetch bucketlists for the current page, initial page is 1.
     this.props.getBucketlists(this.props.current);
   }
+
+  /**
+   * Function called on click of the delete button.
+   * @param {number} id - id of the selected bucketlist.
+   */
   onDelete(id) {
+    // Dispatch action to delete the selected bucketlist.
     this.props.deleteBucketlist(id, () => this.props.getBucketlists(this.props.current));
   }
+  
+  /**
+   * Function toasts appropriate message to the user.
+   */
   notify = (msg) => {
     toast(msg);
   }
+
+  /**
+   * Function fetches the next page.
+   */
   toNextPage() {
+    // Dispatch action to fetch the next page of bucketlists from the API.
     this.props.getBucketlists(this.props.next);
   }
+
+  /**
+   * Function fetches the previous page.
+   */
   toPrevPage() {
+    // Dispatch action to fetch the previous page of bucketlists from API.
     this.props.getBucketlists(this.props.prev);
   }
+
+  /**
+   * Function performs a serch for bucketlists with a given term in the name.
+   * @param {string} term - term to be searched for.
+   */
   bucketlistSearch(term){
+    // Dispatch action to search at API level.
     this.props.searchBucketlists(term);
   }
+
+  /**
+   * Functions laysout the returned bucketlists in a tabular manner.
+   */
   renderBucketlists() {
     return _.map(this.props.bucketlists, bucketlist => (
       <tr>
@@ -61,12 +94,17 @@ export class BucketLists extends Component {
       </tr>
     ));
   }
+
   render() {
+    // Toast a success message on successful login
     if (this.props.auth.success) {
       this.notify(this.props.auth.success_msg);
       this.props.clearMessages();
     }
+    
+    // Delay Search function by 300 milliseconds to avoid a search on every key stroke.
     const bucketlistSearch = _.debounce((term) => { this.bucketlistSearch(term)}, 300)
+
     return (
       <div className="container">
         <ToastContainer />
@@ -102,6 +140,11 @@ export class BucketLists extends Component {
     );
   }
 }
+
+/**
+ * Function maps component props to the application state.
+ * @param {object} state - application state.
+ */
 function mapStateToProps(state) {
   return {
     bucketlists: state.bucketlists.items,
@@ -112,6 +155,7 @@ function mapStateToProps(state) {
     prev: state.bucketlists.prevpage
    };
 }
+// Connect component to redux store.
 export default connect(
   mapStateToProps,
   { getBucketlists, deleteBucketlist, clearMessages, searchBucketlists }

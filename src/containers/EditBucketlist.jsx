@@ -1,3 +1,4 @@
+/** Component handles editing a bucketlist */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -12,30 +13,50 @@ export class EditBucketlist extends Component {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
   }
+
   componentDidMount() {
     const { id } = this.props.match.params;
+    // Fetch a bucketlist to incorporate any changes after the last fetch.
     this.props.getBucketlist(id);
   }
+
+  /**
+   * Function displays a success toast.
+   */
+ 
   notify_success = () => {
     toast.success("Bucketlist has been updated!", {onClose: () => { this.props.history.push('/') }, autoClose: 1000});
   }
+
+  /**
+   * Function displays an error toast.
+   */
   notify_error = () => {
     toast.error("Update Failed, Ensure name is unique");
   }
+
+  /**
+   * Function submits values from the form.
+   * @param {object} values - new values for name and description.
+   */
   onSubmit(values) {
     const { id } = this.props.match.params;
+    // Dispatch actions to edit a bucketlist and also display appropriate toast.
     this.props.editBucketlist(id, values, () => {
       this.notify_success();
     }, () => {this.notify_error()});
   }
   render() {
+    // Redirect unauthenticated users to the login page.
     if (!this.props.auth.Authenticated) {
       return <Redirect to="/login" />;
     }
     const { bucketlist } = this.props;
+    // Show loading incase action fetching bucketlists is not resolved yet.
     if (!bucketlist) {
       return <div> Loading...</div>;
     }
+
     const { name } = this.props.bucketlist;
     const { description } = this.props.bucketlist;
     return (
@@ -51,7 +72,11 @@ export class EditBucketlist extends Component {
     );
   }
 }
-
+/**
+ * Function maps component props to application state.
+ * @param {object} state - application state.
+ * @param {object} ownProps - component props.
+ */
 function mapStateToProps(state, ownProps) {
   return (
     {
@@ -61,4 +86,5 @@ function mapStateToProps(state, ownProps) {
   );
 }
 
+// Export connected component as the default.
 export default connect(mapStateToProps, { getBucketlist, editBucketlist })(EditBucketlist);

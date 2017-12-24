@@ -1,11 +1,17 @@
+/** Form used while editing bucketlists and bucketlist items */
 import React from 'react';
 import _ from 'lodash';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 
 const FIELDS = ['name', 'description'];
+/**
+ * function renders fields with the form
+ * @param {object} field - field to be rendered
+ */
 function renderField(field) {
   const { meta: { touched, error } } = field;
+  // dynamically set class for the field
   const className = `form-group row ${touched && error ? 'has-danger' : ''}`;
   return (
     <div className={className}>
@@ -21,6 +27,10 @@ function renderField(field) {
     </div>
   );
 }
+/**
+ * function laysout the form used to edit bucketlists and items
+ * @param {object} props - props passed to the component
+ */
 const UpdateBucketlistForm = (props) => {
   const { handleSubmit } = props;
   const { onSubmit } = props;
@@ -52,9 +62,13 @@ const UpdateBucketlistForm = (props) => {
   );
 };
 
+/**
+ * Function validates form input.
+ * @param {object} values - values entered in the form.
+ * @returns {object} - errors for the fields in the form
+ */
 function validate(values) {
   const errors = {};
-  // validating the inputs from 'values'
   _.forEach(FIELDS, (field) => {
     if (!values[field]) {
       errors[field] = `Enter a ${field}`;

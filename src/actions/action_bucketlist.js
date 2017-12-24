@@ -56,7 +56,7 @@ export function addBucketlist(values, callback, errorHandler) {
 }
 
 /**
- * action creator for deleting a given bucketlist
+ * action creator dispatches action to delete a given bucketlist
  * @param {number} id - id of the bucketlist to be deleted
  * @param {func} callback - function executed on successful deletion of bucketlist
  */
@@ -68,6 +68,10 @@ export function deleteBucketlist(id, callback) {
   };
 }
 
+/**
+ * Action creator dispatches action to fetch a single bucketlist
+ * @param {number} id - id of the bucketlist to fetch
+ */
 export function getBucketlist(id) {
   const request = instance.get(`/v1/bucketlists/${id}`);
   return {
@@ -76,6 +80,13 @@ export function getBucketlist(id) {
   };
 }
 
+/**
+ * action creator dispatches action to edit a given bucketlist
+ * @param {number} id - id of the bucketlist to edit
+ * @param {object} values - new values for name and discription
+ * @param {func} callback - function executed on successful edit
+ * @param {func} errorHandler - function executed on failure
+ */
 export function editBucketlist(id, values, callback, errorHandler) {
   const request = instance.put(`/v1/bucketlists/${id}`, values)
     .then(() => callback())
@@ -86,6 +97,13 @@ export function editBucketlist(id, values, callback, errorHandler) {
   };
 }
 
+/**
+ * action creator dispatches action to add an item to a bucketlist
+ * @param {number} id - id of the bucketlist the item is to be added to.
+ * @param {object} values - values for name and description of the item
+ * @param {func} callback - function executed on successful addition of the item
+ * @param {func} errorHandler - function executed on failure
+ */
 export function addBucketlistItem(id, values, callback, errorHandler) {
   const request = instance.post(`/v1/bucketlists/${id}/items`, values)
     .then(() => callback())
@@ -96,6 +114,12 @@ export function addBucketlistItem(id, values, callback, errorHandler) {
   };
 }
 
+/**
+ * action creator dispatches action to delete an item from a bucketlist
+ * @param {number} bucketlistId - id of the bucketlist from which item is to be deleted
+ * @param {number} itemId - id of item to be deleted
+ * @param {func} callback - function executed on successful deletion of item
+ */
 export function deleteBucketlistItem(bucketlistId, itemId, callback) {
   const request = instance.delete(`/v1/bucketlists/${bucketlistId}/items/${itemId}`)
     .then(() => callback());
@@ -105,6 +129,14 @@ export function deleteBucketlistItem(bucketlistId, itemId, callback) {
   };
 }
 
+/**
+ * action creator dispatches action to edit an item n a bucketlist
+ * @param {number} bucketlistId - id of bucketlist containing the item to be edited
+ * @param {number} itemId - id of the item to be edited
+ * @param {object} values - new values for name and description of the item
+ * @param {func} callback - function executed on successfull edit of item
+ * @param {func} errorHandler - function executed on failure
+ */
 export function editItem(bucketlistId, itemId, values, callback, errorHandler) {
   const request = instance.put(`/v1/bucketlists/${bucketlistId}/items/${itemId}`, values)
     .then(() => callback())
@@ -114,7 +146,10 @@ export function editItem(bucketlistId, itemId, values, callback, errorHandler) {
     payload: request
   };
 }
-
+/**
+ * action creator dispatches action to search for a bucketlist based on the term provided
+ * @param {str} term - a term to be searched for in the name of bucketlist
+ */
 export function searchBucketlists(term) {
   const request = instance.get(`/v1/bucketlists?limit=5&page=1&q=${term}`);
   return {

@@ -1,3 +1,4 @@
+/** Component displays items in a given bucketlist */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
@@ -9,17 +10,31 @@ export class ShowBucketlist extends Component {
     super(props);
     this.onDelete = this.onDelete.bind(this);
   }
+
   componentDidMount() {
     const { id } = this.props.match.params;
+    // Dispatch action to fetch a single bucketlist
     this.props.getBucketlist(id);
   }
+
+  /**
+   * Function executed on click of the delete button
+   * @param {number} bucketlistId - id of the current bucketlist.
+   * @param {number} itemId - id of the item to delete
+   */
   onDelete(bucketlistId, itemId) {
+    // Dispatch action to delete item from bucketlist.
     this.props.deleteBucketlistItem(
       bucketlistId,
       itemId,
       () => this.props.getBucketlist(bucketlistId)
     );
   }
+
+  /**
+   * Function laysout items in a tabular way
+   * @param {number} id - id of the current bucketlist
+   */
   renderItems(id) {
     return _.map(this.props.bucketlist.items, item => (
       <tr>
@@ -42,16 +57,20 @@ export class ShowBucketlist extends Component {
   render() {
     const { bucketlist } = this.props;
 
+    // Redirect to login for unauthenticated users
     if (!this.props.auth.Authenticated) {
       return <Redirect to="/login" />;
     }
 
+    // Show loading incase the api call is not yet resolved
     if (!bucketlist) {
       return <div>Loading ...</div>;
     }
+
     const { name } = bucketlist;
     const { description } = bucketlist;
     const { id } = bucketlist;
+
     return (
       <div className="container">
         <div className="jumbotron">
@@ -78,7 +97,13 @@ export class ShowBucketlist extends Component {
     );
   }
 }
+/**
+ * Function maps component props to application state.
+ * @param {object} state - application state
+ * @param {object} ownProps - component props
+ */
 function mapStateToProps(state, ownProps) {
   return { bucketlist: state.bucketlists[ownProps.match.params.id], auth: state.auth };
 }
+// export the connected component as default
 export default connect(mapStateToProps, { getBucketlist, deleteBucketlistItem })(ShowBucketlist);

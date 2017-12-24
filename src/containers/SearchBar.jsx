@@ -1,3 +1,6 @@
+/**
+ * Component handles making search quieries
+ */
 import React, { Component } from 'react';
 
 export default class SearchBar extends Component {
@@ -5,6 +8,11 @@ export default class SearchBar extends Component {
     super(props);
     this.state = { term: '' };
   }
+
+  /**
+   * Function handles typing into the search form
+   * @param {string} term - term typed into the search form
+   */
   onInputChange(term) {
     this.setState({ term });
     this.props.onSearchTermChange(term);
