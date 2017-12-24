@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Paginate component Matches its snapshor 1`] = `
+<div>
+  <ul
+    className="pagination"
+  >
+    <li
+      className="page-item"
+    >
+      <button
+        className="page-link"
+        onClick={[Function]}
+      >
+        «previous
+      </button>
+    </li>
+    <li
+      className="page-item"
+    >
+      <p
+        className="page-link"
+      >
+        Page undefined of undefined
+      </p>
+    </li>
+    <li
+      className="page-item"
+    >
+      <button
+        className="page-link"
+        onClick={[Function]}
+      >
+        Next»
+      </button>
+    </li>
+  </ul>
+</div>
+`;
