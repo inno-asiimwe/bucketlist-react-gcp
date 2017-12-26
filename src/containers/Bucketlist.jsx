@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import _ from 'lodash';
-import { getBucketlist, deleteBucketlistItem } from '../actions/action_bucketlist';
+import { getBucketlistItem, deleteBucketlistItem } from '../actions/action_bucketlist';
 
 export class ShowBucketlist extends Component {
   constructor(props) {
@@ -14,7 +14,7 @@ export class ShowBucketlist extends Component {
   componentDidMount() {
     const { id } = this.props.match.params;
     // Dispatch action to fetch a single bucketlist
-    this.props.getBucketlist(id);
+    this.props.getBucketlistItem(id, this.props.current);
   }
 
   /**
@@ -27,7 +27,7 @@ export class ShowBucketlist extends Component {
     this.props.deleteBucketlistItem(
       bucketlistId,
       itemId,
-      () => this.props.getBucketlist(bucketlistId)
+      () => this.props.getBucketlistItem(bucketlistId, this.props.current)
     );
   }
 
@@ -36,7 +36,7 @@ export class ShowBucketlist extends Component {
    * @param {number} id - id of the current bucketlist
    */
   renderItems(id) {
-    return _.map(this.props.bucketlist.items, item => (
+    return _.map(this.props.items, item => (
       <tr>
         <td>
           {item.name}
@@ -55,7 +55,7 @@ export class ShowBucketlist extends Component {
     ));
   }
   render() {
-    const { bucketlist } = this.props;
+    const { items } = this.props;
 
     // Redirect to login for unauthenticated users
     if (!this.props.auth.Authenticated) {
@@ -63,13 +63,16 @@ export class ShowBucketlist extends Component {
     }
 
     // Show loading incase the api call is not yet resolved
-    if (!bucketlist) {
+    if (!items) {
+      return <div>Loading ...</div>;
+    }
+    if (!this.props.bucketlist) {
       return <div>Loading ...</div>;
     }
 
-    const { name } = bucketlist;
-    const { description } = bucketlist;
-    const { id } = bucketlist;
+    const { name } = this.props.bucketlist;
+    const { description } = this.props.bucketlist;
+    const { id } = this.props.bucketlist;
 
     return (
       <div className="container">
@@ -102,8 +105,19 @@ export class ShowBucketlist extends Component {
  * @param {object} state - application state
  * @param {object} ownProps - component props
  */
-function mapStateToProps(state, ownProps) {
-  return { bucketlist: state.bucketlists[ownProps.match.params.id], auth: state.auth };
+function mapStateToProps(state) {
+  return {
+    items: state.bucketlists.items,
+    bucketlist: state.bucketlists.bucketlist,
+    auth: state.auth,
+    pages: state.bucketlists.totalpages,
+    current: state.bucketlists.currentpage,
+    next: state.bucketlists.nextpage,
+    prev: state.bucketlists.prevpage
+  };
 }
 // export the connected component as default
-export default connect(mapStateToProps, { getBucketlist, deleteBucketlistItem })(ShowBucketlist);
+export default connect(
+  mapStateToProps,
+  { getBucketlistItem, deleteBucketlistItem }
+)(ShowBucketlist);

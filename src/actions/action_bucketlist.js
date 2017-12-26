@@ -26,6 +26,10 @@ export const EDIT_BUCKETLIST_ITEM = 'edit_bucketlist_item';
 export const SEARCH_BUCKETLISTS = 'search_bucketlists';
 export const SEARCH_BUCKETLISTS_SUCCESS = 'search_bucketlists_SUCCESS';
 export const SEARCH_BUCKETLISTS_ERROR = 'search_bucketlists_ERROR';
+export const GET_BUCKETLIST_ITEMS = 'get_bucketlist_items';
+export const GET_BUCKETLIST_ITEMS_SUCCESS = 'get_bucketlist_items_SUCCESS';
+export const GET_BUCKETLIST_ITEMS_ERROR = 'get_bucketlist_items_ERROR';
+export const GET_BUCKETLIST_ITEMS_PENDING = 'get_bucketlist_items_REQUEST';
 
 /**
  * action creator for fetching  bucketlists from the API
@@ -154,6 +158,14 @@ export function searchBucketlists(term) {
   const request = instance.get(`/v1/bucketlists?limit=5&page=1&q=${term}`);
   return {
     type: SEARCH_BUCKETLISTS,
+    payload: request
+  };
+}
+
+export function getBucketlistItem(bucketlistId, page) {
+  const request = instance.get(`v1/bucketlists/${bucketlistId}/items?limit=5&page=${page}`);
+  return {
+    type: GET_BUCKETLIST_ITEMS,
     payload: request
   };
 }

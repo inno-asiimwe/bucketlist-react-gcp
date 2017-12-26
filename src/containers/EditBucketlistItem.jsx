@@ -86,7 +86,7 @@ export class EditBucketlistItem extends Component {
 function mapStateToProps(state, ownProps) {
   return (
     {
-      item: state.bucketlists[ownProps.match.params.id].items[ownProps.match.params.itemid],
+      item: state.bucketlists.items[ownProps.match.params.itemid],
       auth: state.auth
     }
   );
