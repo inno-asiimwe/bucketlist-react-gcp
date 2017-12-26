@@ -6,7 +6,7 @@ import UpdateBucketlistForm from '../../components/UpdateBucketList';
 
 describe('UpdateBucketlistForm', () => {
   it('Matches a snapshot', () => {
-    const output = shallow(<UpdateBucketlistForm />)
+    const output = shallow(<UpdateBucketlistForm />);
     expect(shallowToJson(output)).toMatchSnapshot();
   });
 });

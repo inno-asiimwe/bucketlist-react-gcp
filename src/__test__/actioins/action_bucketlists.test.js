@@ -60,7 +60,7 @@ describe('bucketlist_actions', () => {
     });
     const actionsExpected = ['delete_bucketlist_REQUEST', 'delete_bucketlist_SUCCESS'];
     const store = mockStore({});
-    return store.dispatch(actions.deleteBucketlist(id)).then(() => {
+    return store.dispatch(actions.deleteBucketlist(id, () => {})).then(() => {
       const actionsDispatched = store.getActions();
       const actionTypes = actionsDispatched.map(action => action.type);
       expect(actionTypes).toEqual(actionsExpected);

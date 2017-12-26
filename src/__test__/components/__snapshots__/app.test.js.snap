@@ -48,10 +48,6 @@ exports[`App matches snapshot 1`] = `
         />
         <Route
           component={[Function]}
-          path="/logout"
-        />
-        <Route
-          component={[Function]}
           path="/"
         />
       </Switch>

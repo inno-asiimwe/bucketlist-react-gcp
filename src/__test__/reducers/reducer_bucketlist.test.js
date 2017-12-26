@@ -4,10 +4,22 @@ describe('Bucketlist reducers', () => {
   it('it updates state on get_bucketlists_SUCCESS', () => {
     expect(reducer(initialState, {
       type: 'get_bucketlists_SUCCESS',
-      payload: { data: [{ 1: { name: 'Before 40', description: '' } }] }
+      payload: {
+        data: {
+          items: [{ 1: { name: 'Before 40', description: '' } }],
+          current_page: 1,
+          next_page: null,
+          prev_page: null,
+          pages: 1
+        }
+      }
     })).toEqual({
       ...initialState,
-      undefined: { 1: { name: 'Before 40', description: '' } }
+      items: { undefined: { 1: { name: 'Before 40', description: '' } } },
+      totalpages: 1,
+      currentpage: 1,
+      nextpage: null,
+      prevpage: null
     });
   });
   it('it updates state on delete_bucketlist_SUCCESS', () => {

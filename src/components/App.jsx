@@ -1,3 +1,4 @@
+/** The app component  */
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -11,7 +12,6 @@ import ShowBucketlist from '../containers/Bucketlist';
 import NewItem from '../containers/NewBucketlistItem';
 import EditBucketlistItem from '../containers/EditBucketlistItem';
 import Nav from './NavBar';
-import Logout from '../containers/Logout';
 
 const App = () => (
   <Provider store={store}>
@@ -26,7 +26,6 @@ const App = () => (
           <Route path="/bucketlists/:id" component={ShowBucketlist} />
           <Route path="/register" component={RegisterUser} />
           <Route path="/login" component={LoginUser} />
-          <Route path="/logout" component={Logout} />
           <Route path="/" component={Home} />
         </Switch>
       </div>

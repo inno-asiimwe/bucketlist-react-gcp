@@ -31,7 +31,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "lint": "node_modules/.in/eslint"
+    "lint": "node_modules/.bin/eslint"
   },
   "devDependencies": {
     "enzyme": "^3.2.0",

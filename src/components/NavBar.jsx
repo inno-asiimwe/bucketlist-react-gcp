@@ -1,5 +1,5 @@
 /**
- * The component facilitates navigation amongest the components. 
+ * The component facilitates navigation amongest the components.
  * */
 import React from 'react';
 import { connect } from 'react-redux';
@@ -7,7 +7,12 @@ import { NavLink } from 'react-router-dom';
 import { logoutUser } from '../actions/action_auth';
 import SearchBar from '../containers/SearchBar';
 
+/**
+ * Function laysout Navigation bar
+ * @param {object} props - Props passed to the component.
+ */
 const Nav = props => (
+  // Layout the navbar
   <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
     <a className="navbar-brand" href="/home">BucketList App</a>
     <button
@@ -33,6 +38,7 @@ const Nav = props => (
           </NavLink>
         </li>
         <li className="nav-item">
+          {/* Show logout button is a user is logged in and register link otherwise. */}
           { props.auth.Authenticated ?
             <button type="btn" className="nav-link" onClick={() => props.logoutUser(() => props.history.push('/'))}>
               Logout
@@ -47,16 +53,14 @@ const Nav = props => (
         }
         </li>
       </ul>
-      {/* { props.auth.Authenticated &&
-        <SearchBar />
-      } */}
     </div>
   </nav>
 );
-// connecting the component to the store for its props
+// Map component props to application state
 function mapStateToProps(state) {
   return {
     auth: state.auth
   };
 }
+// Connect application to redux store
 export default connect(mapStateToProps, { logoutUser })(Nav);

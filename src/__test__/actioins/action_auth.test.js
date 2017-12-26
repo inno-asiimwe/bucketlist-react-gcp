@@ -37,7 +37,7 @@ describe('auth_actions', () => {
     });
     const actionsExpected = ['register_REQUEST', 'register_SUCCESS'];
     const store = mockStore({});
-    return store.dispatch(actions.registerUser(data)).then(() => {
+    return store.dispatch(actions.registerUser(data, () => {})).then(() => {
       const actionsDispatched = store.getActions();
       const actionTypes = actionsDispatched.map(action => action.type);
       expect(actionTypes).toEqual(actionsExpected);

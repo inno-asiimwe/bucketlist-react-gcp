@@ -2,6 +2,8 @@
 
 exports[`Home matches snapshot 1`] = `
 <div>
-  <Connect(BucketLists) />
+  <Connect(BucketLists)
+    callback={[Function]}
+  />
 </div>
 `;

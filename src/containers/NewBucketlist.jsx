@@ -38,7 +38,7 @@ export class NewBucketlist extends Component {
     toast.success("New Bucketlist created", {onClose: () => {this.props.history.push('/')}, autoClose: 1000});
   }
   notify_error = () => {
-    toast.error("Bucketlist not created Ensure name is unique")
+    toast.error("Bucketlist not created Ensure name is unique");
   }
   render() {
     if (!this.props.auth.Authenticated) {
