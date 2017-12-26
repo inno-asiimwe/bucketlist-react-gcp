@@ -30,6 +30,9 @@ export const GET_BUCKETLIST_ITEMS = 'get_bucketlist_items';
 export const GET_BUCKETLIST_ITEMS_SUCCESS = 'get_bucketlist_items_SUCCESS';
 export const GET_BUCKETLIST_ITEMS_ERROR = 'get_bucketlist_items_ERROR';
 export const GET_BUCKETLIST_ITEMS_PENDING = 'get_bucketlist_items_REQUEST';
+export const SEARCH_BUCKETLIST_ITEMS = 'get_bucketlist_items';
+export const SEARCH_BUCKETLIST_ITEMS_SUCCESS = 'get_bucketlist_items_SUCCESS';
+export const SEARCH_BUCKETLIST_ITEMS_ERROR = 'get_bucketlist_items_ERROR';
 
 /**
  * action creator for fetching  bucketlists from the API
@@ -161,11 +164,23 @@ export function searchBucketlists(term) {
     payload: request
   };
 }
-
+/**
+ * action creator dispatches action to fetch items for a single bucketlist
+ * @param {number} bucketlistId - Id of bucketlist whose items are to be fetched.
+ * @param {number} page - Page number to be fetched.
+ */
 export function getBucketlistItem(bucketlistId, page) {
   const request = instance.get(`v1/bucketlists/${bucketlistId}/items?limit=5&page=${page}`);
   return {
     type: GET_BUCKETLIST_ITEMS,
+    payload: request
+  };
+}
+
+export function serchBucketlistItems(bucketlistId, term) {
+  const request = instance.get(`v1/bucketlists/${bucketlistId}/items?limit=5&page=1&q=${term}`);
+  return {
+    type: SEARCH_BUCKETLIST_ITEMS,
     payload: request
   };
 }
