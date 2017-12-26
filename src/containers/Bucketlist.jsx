@@ -4,11 +4,14 @@ import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import _ from 'lodash';
 import { getBucketlistItem, deleteBucketlistItem } from '../actions/action_bucketlist';
+import Paginate from '../components/paginate';
 
 export class ShowBucketlist extends Component {
   constructor(props) {
     super(props);
     this.onDelete = this.onDelete.bind(this);
+    this.toNextPage = this.toNextPage.bind(this);
+    this.toPrevPage = this.toPrevPage.bind(this);
   }
 
   componentDidMount() {
@@ -29,6 +32,24 @@ export class ShowBucketlist extends Component {
       itemId,
       () => this.props.getBucketlistItem(bucketlistId, this.props.current)
     );
+  }
+
+  /**
+   * Function fetches the next page.
+   */
+  toNextPage() {
+    // Dispatch action to fetch the next page of bucketlists from the API.
+    const { id } = this.props.match.params;
+    this.props.getBucketlistItem(id, this.props.next);
+  }
+
+  /**
+   * Function fetches the previous page.
+   */
+  toPrevPage() {
+    // Dispatch action to fetch the previous page of bucketlists from API.
+    const { id } = this.props.match.params;
+    this.props.getBucketlistItem(id, this.props.prev);
   }
 
   /**
@@ -94,6 +115,14 @@ export class ShowBucketlist extends Component {
                 {this.renderItems(id)}
               </tbody>
             </table>
+            <Paginate
+              page={this.props.current}
+              pages={this.props.pages}
+              onNext={this.toNextPage}
+              onPrev={this.toPrevPage}
+              hasNext={this.props.hasNext}
+              hasPrev={this.props.hasPrev}
+            />
           </div>
         </div>
       </div>
@@ -113,7 +142,9 @@ function mapStateToProps(state) {
     pages: state.bucketlists.totalpages,
     current: state.bucketlists.currentpage,
     next: state.bucketlists.nextpage,
-    prev: state.bucketlists.prevpage
+    prev: state.bucketlists.prevpage,
+    hasNext: state.bucketlists.has_next,
+    hasPrev: state.bucketlists.has_prev
   };
 }
 // export the connected component as default

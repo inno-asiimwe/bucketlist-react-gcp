@@ -133,6 +133,8 @@ export class BucketLists extends Component {
             pages={this.props.pages}
             onNext={this.toNextPage}
             onPrev={this.toPrevPage}
+            hasNext={this.props.hasNext}
+            hasPrev={this.props.hasPrev}
           />
         </div>
       </div>
@@ -152,7 +154,9 @@ function mapStateToProps(state) {
     pages: state.bucketlists.totalpages,
     current: state.bucketlists.currentpage,
     next: state.bucketlists.nextpage,
-    prev: state.bucketlists.prevpage
+    prev: state.bucketlists.prevpage,
+    hasNext: state.bucketlists.has_next,
+    hasPrev: state.bucketlists.has_prev
    };
 }
 // Connect component to redux store.
