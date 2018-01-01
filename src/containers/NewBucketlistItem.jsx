@@ -75,7 +75,7 @@ export class NewItem extends Component {
     return (
       <div className="container">
       <ToastContainer />
-        <h3> {`Add items to ${this.props.name}`}</h3>
+        <h3> {`Add item to ${this.props.name}`}</h3>
         <br />
         <form onSubmit={handleSubmit(this.onSubmit)}>
 
