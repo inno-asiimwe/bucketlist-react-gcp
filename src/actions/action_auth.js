@@ -1,5 +1,5 @@
 /** Contains action creators concerned with authentication */
-import instance from '../config/axiosConfig';
+import AuthApi from '../api/authApi';
 
 // Define constants for all the action creator names
 export const REGISTER = 'register';
@@ -22,10 +22,15 @@ export const CLEAR_MESSAGES = 'clear';
  * @param {func} callback - function executed on successful registration
  */
 export function registerUser(values, callback) {
-  const request = instance.post('/v1/auth/register', values).then(() => callback());
-  return {
-    type: REGISTER,
-    payload: request,
+  return (dispatch) => {
+    AuthApi.registerUserApi(values)
+      .then((resp) => {
+        dispatch({ type: REGISTER_SUCCESS, payload: resp });
+        dispatch(() => callback());
+      })
+      .catch((err) => {
+        dispatch({ type: REGISTER_ERROR, payload: err });
+      });
   };
 }
 
@@ -34,10 +39,14 @@ export function registerUser(values, callback) {
  * @param {object} values - username and password
  */
 export function loginUser(values) {
-  const request = instance.post('/v1/auth/login', values);
-  return {
-    type: LOGIN,
-    payload: request
+  return (dispatch) => {
+    AuthApi.loginUserApi(values)
+      .then((resp) => {
+        dispatch({ type: LOGIN_SUCCESS, payload: resp });
+      })
+      .catch((err) => {
+        dispatch({ type: LOGIN_ERROR, payload: err });
+      });
   };
 }
 
@@ -45,10 +54,14 @@ export function loginUser(values) {
  * action creator dispatches action to logout a user
  */
 export function logoutUser() {
-  const request = instance.post('/v1/auth/logout');
-  return {
-    type: LOGOUT,
-    payload: request
+  return (dispatch) => {
+    AuthApi.logoutUserApi()
+      .then((resp) => {
+        dispatch({ type: LOGOUT_SUCCESS, payload: resp });
+      })
+      .catch((err) => {
+        dispatch({ type: LOGOUT_ERROR, payload: err });
+      });
   };
 }
 
