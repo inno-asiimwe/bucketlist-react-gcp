@@ -67,12 +67,15 @@ export class NewItem extends Component {
     if (!this.props.auth.Authenticated) {
       return <Redirect to="/login" />;
     }
+    if (!this.props.name) {
+      return <div>Loading...</div>
+    }
     const { handleSubmit } = this.props;
     const { id } = this.props.match.params;
     return (
       <div className="container">
       <ToastContainer />
-        <h3> New Bucketlist Item</h3>
+        <h3> {`Add items to ${this.props.name}`}</h3>
         <br />
         <form onSubmit={handleSubmit(this.onSubmit)}>
 
@@ -116,7 +119,7 @@ function validate(values) {
  * @param {object} state - application state
  */
 function mapStateToProps(state) {
-  return { auth: state.auth };
+  return { auth: state.auth, name: state.bucketlists.bucketlist.name };
 }
 
 // exporting the connected reduxform as the default
