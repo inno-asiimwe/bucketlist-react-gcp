@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import _ from 'lodash';
-import { getBucketlistItem, deleteBucketlistItem, serchBucketlistItems } from '../actions/action_bucketlist';
+import { getBucketlistItem, deleteBucketlistItem, searchBucketlistItems } from '../actions/action_bucketlist';
 import Paginate from '../components/paginate';
 import SearchBar from '../containers/SearchBar';
 
@@ -38,7 +38,7 @@ export class ShowBucketlist extends Component {
 
   searchItems(term) {
     const { id } = this.props.match.params;
-    this.props.serchBucketlistItems(id, term);
+    this.props.searchBucketlistItems(id, term);
   }
 
   /**
@@ -163,5 +163,5 @@ function mapStateToProps(state) {
 // export the connected component as default
 export default connect(
   mapStateToProps,
-  { getBucketlistItem, deleteBucketlistItem, serchBucketlistItems }
+  { getBucketlistItem, deleteBucketlistItem, searchBucketlistItems }
 )(ShowBucketlist);

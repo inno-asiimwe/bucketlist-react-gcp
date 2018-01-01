@@ -1,3 +1,6 @@
+/**
+ * All calls to the API concerning Authentication
+ */
 import instance from '../config/axiosConfig';
 
 class AuthApi {
