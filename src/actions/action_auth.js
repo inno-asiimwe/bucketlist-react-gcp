@@ -22,8 +22,8 @@ export const CLEAR_MESSAGES = 'clear';
  * @param {func} callback - function executed on successful registration
  */
 export function registerUser(values, callback) {
-  return (dispatch) => {
-    AuthApi.registerUserApi(values)
+  return async (dispatch) => {
+    await AuthApi.registerUserApi(values)
       .then((resp) => {
         dispatch({ type: REGISTER_SUCCESS, payload: resp });
         dispatch(() => callback());
@@ -39,8 +39,8 @@ export function registerUser(values, callback) {
  * @param {object} values - username and password
  */
 export function loginUser(values) {
-  return (dispatch) => {
-    AuthApi.loginUserApi(values)
+  return async (dispatch) => {
+    await AuthApi.loginUserApi(values)
       .then((resp) => {
         dispatch({ type: LOGIN_SUCCESS, payload: resp });
       })
@@ -54,8 +54,8 @@ export function loginUser(values) {
  * action creator dispatches action to logout a user
  */
 export function logoutUser() {
-  return (dispatch) => {
-    AuthApi.logoutUserApi()
+  return async (dispatch) => {
+    await AuthApi.logoutUserApi()
       .then((resp) => {
         dispatch({ type: LOGOUT_SUCCESS, payload: resp });
       })

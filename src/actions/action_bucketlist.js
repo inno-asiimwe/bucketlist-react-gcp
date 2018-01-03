@@ -45,8 +45,8 @@ export const SEARCH_BUCKETLIST_ITEMS_ERROR = 'get_bucketlist_items_ERROR';
  * @param {number} page - The page to fetch
  */
 export function getBucketlists(page) {
-  return (dispatch) => {
-    BucketlistApi.getAllBucketlists(page)
+  return async (dispatch) => {
+    await BucketlistApi.getAllBucketlists(page)
       .then((resp) => {
         dispatch({ type: GET_BUCKETLISTS_SUCCESS, payload: resp });
       })
@@ -63,8 +63,8 @@ export function getBucketlists(page) {
  * @param {func} errorHandler - function to be called on failure of the action
  */
 export function addBucketlist(values, callback, errorHandler) {
-  return (dispatch) => {
-    BucketlistApi.addBucketlistApi(values)
+  return async (dispatch) => {
+    await BucketlistApi.addBucketlistApi(values)
       .then((resp) => {
         dispatch({ type: ADD_BUCKETLIST_SUCCESS, payload: resp });
         dispatch(() => callback());
@@ -82,8 +82,8 @@ export function addBucketlist(values, callback, errorHandler) {
  * @param {func} callback - function executed on successful deletion of bucketlist
  */
 export function deleteBucketlist(id, callback) {
-  return (dispatch) => {
-    BucketlistApi.deleteBucketlistApi(id)
+  return async (dispatch) => {
+    await BucketlistApi.deleteBucketlistApi(id)
       .then((resp) => {
         dispatch({ type: DELETE_BUCKETLIST_SUCCESS, payload: resp });
         dispatch(() => callback());
@@ -99,8 +99,8 @@ export function deleteBucketlist(id, callback) {
  * @param {number} id - id of the bucketlist to fetch
  */
 export function getBucketlist(id) {
-  return (dispatch) => {
-    BucketlistApi.getSingleBucketlist(id)
+  return async (dispatch) => {
+    await BucketlistApi.getSingleBucketlist(id)
       .then((resp) => {
         dispatch({ type: GET_BUCKETLIST_SUCCESS, payload: resp });
       })
@@ -118,8 +118,8 @@ export function getBucketlist(id) {
  * @param {func} errorHandler - function executed on failure
  */
 export function editBucketlist(id, values, callback, errorHandler) {
-  return (dispatch) => {
-    BucketlistApi.editBucketlistApi(id, values)
+  return async (dispatch) => {
+    await BucketlistApi.editBucketlistApi(id, values)
       .then((resp) => {
         dispatch({ type: EDIT_BUCKETLIST_SUCCESS, payload: resp });
         dispatch(() => callback());
@@ -139,8 +139,8 @@ export function editBucketlist(id, values, callback, errorHandler) {
  * @param {func} errorHandler - function executed on failure
  */
 export function addBucketlistItem(id, values, callback, errorHandler) {
-  return (dispatch) => {
-    BucketlistApi.addBucketlistItemApi(id, values)
+  return async (dispatch) => {
+    await BucketlistApi.addBucketlistItemApi(id, values)
       .then((resp) => {
         dispatch({ type: ADD_BUCKETLIST_ITEM_SUCCESS, payload: resp });
         dispatch(() => callback());
@@ -159,8 +159,8 @@ export function addBucketlistItem(id, values, callback, errorHandler) {
  * @param {func} callback - function executed on successful deletion of item
  */
 export function deleteBucketlistItem(bucketlistId, itemId, callback) {
-  return (dispatch) => {
-    BucketlistApi.deleteBucketlistItemApi(bucketlistId, itemId)
+  return async (dispatch) => {
+    await BucketlistApi.deleteBucketlistItemApi(bucketlistId, itemId)
       .then((resp) => {
         dispatch({ type: DELETE_BUCKETLIST_ITEM_SUCCESS, payload: resp });
         dispatch(() => callback());
@@ -180,8 +180,8 @@ export function deleteBucketlistItem(bucketlistId, itemId, callback) {
  * @param {func} errorHandler - function executed on failure
  */
 export function editItem(bucketlistId, itemId, values, callback, errorHandler) {
-  return (dispatch) => {
-    BucketlistApi.editBucketlistItem(bucketlistId, itemId, values)
+  return async (dispatch) => {
+    await BucketlistApi.editBucketlistItem(bucketlistId, itemId, values)
       .then((resp) => {
         dispatch({ type: EDIT_BUCKETLIST_ITEM_SUCCESS, payload: resp });
         dispatch(() => callback());
@@ -198,8 +198,8 @@ export function editItem(bucketlistId, itemId, values, callback, errorHandler) {
  * @param {str} term - a term to be searched for in the name of bucketlist
  */
 export function searchBucketlists(term) {
-  return (dispatch) => {
-    BucketlistApi.searchBucketlistsApi(term)
+  return async (dispatch) => {
+    await BucketlistApi.searchBucketlistsApi(term)
       .then((resp) => {
         dispatch({ type: SEARCH_BUCKETLISTS_SUCCESS, payload: resp });
       })
@@ -215,8 +215,8 @@ export function searchBucketlists(term) {
  * @param {number} page - Page number to be fetched.
  */
 export function getBucketlistItem(bucketlistId, page) {
-  return (dispatch) => {
-    BucketlistApi.getBucketlistItemApi(bucketlistId, page)
+  return async (dispatch) => {
+    await BucketlistApi.getBucketlistItemApi(bucketlistId, page)
       .then((resp) => {
         dispatch({ type: GET_BUCKETLIST_ITEMS_SUCCESS, payload: resp });
       })
@@ -232,8 +232,8 @@ export function getBucketlistItem(bucketlistId, page) {
  * @param {String} term - a term to be searched for in the name of items.
  */
 export function searchBucketlistItems(bucketlistId, term) {
-  return (dispatch) => {
-    BucketlistApi.searchBucketlistItemsApi(bucketlistId, term)
+  return async (dispatch) => {
+    await BucketlistApi.searchBucketlistItemsApi(bucketlistId, term)
       .then((resp) => {
         dispatch({ type: SEARCH_BUCKETLIST_ITEMS_SUCCESS, payload: resp });
       })
