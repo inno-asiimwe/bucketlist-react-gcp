@@ -3,12 +3,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import _ from 'lodash';
-import { getBucketlistItem, deleteBucketlistItem } from '../actions/action_bucketlist';
+import { getBucketlistItem, deleteBucketlistItem, searchBucketlistItems } from '../actions/action_bucketlist';
+import Paginate from '../components/paginate';
+import SearchBar from '../containers/SearchBar';
 
 export class ShowBucketlist extends Component {
   constructor(props) {
     super(props);
     this.onDelete = this.onDelete.bind(this);
+    this.toNextPage = this.toNextPage.bind(this);
+    this.toPrevPage = this.toPrevPage.bind(this);
+    this.searchItems = this.searchItems.bind(this);
   }
 
   componentDidMount() {
@@ -29,6 +34,29 @@ export class ShowBucketlist extends Component {
       itemId,
       () => this.props.getBucketlistItem(bucketlistId, this.props.current)
     );
+  }
+
+  searchItems(term) {
+    const { id } = this.props.match.params;
+    this.props.searchBucketlistItems(id, term);
+  }
+
+  /**
+   * Function fetches the next page.
+   */
+  toNextPage() {
+    // Dispatch action to fetch the next page of bucketlists from the API.
+    const { id } = this.props.match.params;
+    this.props.getBucketlistItem(id, this.props.next);
+  }
+
+  /**
+   * Function fetches the previous page.
+   */
+  toPrevPage() {
+    // Dispatch action to fetch the previous page of bucketlists from API.
+    const { id } = this.props.match.params;
+    this.props.getBucketlistItem(id, this.props.prev);
   }
 
   /**
@@ -74,8 +102,11 @@ export class ShowBucketlist extends Component {
     const { description } = this.props.bucketlist;
     const { id } = this.props.bucketlist;
 
+    const searchItems = _.debounce((term) => { this.searchItems(term); }, 300);
+
     return (
       <div className="container">
+        <SearchBar onSearchTermChange={searchItems} />
         <div className="jumbotron">
           <div>
             <div className="float-left">
@@ -89,11 +120,22 @@ export class ShowBucketlist extends Component {
             <h3>{name} </h3>
             <p>description: {description}</p>
             <h4>{`items in ${name}`}</h4>
+            {this.props.pages === 0 &&
+            <div> No items found</div>
+            }
             <table className="table">
               <tbody>
                 {this.renderItems(id)}
               </tbody>
             </table>
+            <Paginate
+              page={this.props.current}
+              pages={this.props.pages}
+              onNext={this.toNextPage}
+              onPrev={this.toPrevPage}
+              hasNext={this.props.hasNext}
+              hasPrev={this.props.hasPrev}
+            />
           </div>
         </div>
       </div>
@@ -113,11 +155,13 @@ function mapStateToProps(state) {
     pages: state.bucketlists.totalpages,
     current: state.bucketlists.currentpage,
     next: state.bucketlists.nextpage,
-    prev: state.bucketlists.prevpage
+    prev: state.bucketlists.prevpage,
+    hasNext: state.bucketlists.has_next,
+    hasPrev: state.bucketlists.has_prev
   };
 }
 // export the connected component as default
 export default connect(
   mapStateToProps,
-  { getBucketlistItem, deleteBucketlistItem }
+  { getBucketlistItem, deleteBucketlistItem, searchBucketlistItems }
 )(ShowBucketlist);

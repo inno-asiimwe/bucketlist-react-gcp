@@ -6,7 +6,7 @@ exports[`Paginate component Matches its snapshor 1`] = `
     className="pagination"
   >
     <li
-      className="page-item"
+      className="page-item disabled"
     >
       <button
         className="page-link"
@@ -25,7 +25,7 @@ exports[`Paginate component Matches its snapshor 1`] = `
       </p>
     </li>
     <li
-      className="page-item"
+      className="page-item disabled"
     >
       <button
         className="page-link"

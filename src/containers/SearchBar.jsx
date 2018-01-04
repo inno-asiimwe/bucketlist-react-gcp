@@ -23,7 +23,7 @@ export default class SearchBar extends Component {
         <input
           className="form-control mr-sm-2"
           type="text"
-          placeholder="Search Bucketlists"
+          placeholder="Search"
           value={this.state.term}
           onChange={event => this.onInputChange(event.target.value)}
         />

@@ -13,12 +13,4 @@ describe('NewItem', () => {
     />);
     expect(shallowToJson(output)).toMatchSnapshot();
   });
-  it('renders a form', () => {
-    const component = shallow(<NewItem
-      match={{ params: { id: 1 } }}
-      handleSubmit={() => {}}
-      auth={{ Authenticated: true }}
-    />);
-    expect(component.find('form').length).toBe(1);
-  });
 });

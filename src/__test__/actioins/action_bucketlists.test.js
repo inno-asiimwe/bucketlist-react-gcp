@@ -16,14 +16,14 @@ describe('bucketlist_actions', () => {
   afterEach(() => {
     moxios.uninstall(instance);
   });
-  it('it dispatches get_bucketlist_REQUEST and get_bucketlist_SUCCESS', () => {
+  it('it dispatches get_bucketlist_SUCCESS', () => {
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
         status: 200
       });
     });
-    const actionsExpected = ['get_bucketlists_REQUEST', 'get_bucketlists_SUCCESS'];
+    const actionsExpected = ['get_bucketlists_SUCCESS'];
     const store = mockStore({});
     return store.dispatch(actions.getBucketlists()).then(() => {
       const actionsDispatched = store.getActions();
@@ -31,7 +31,7 @@ describe('bucketlist_actions', () => {
       expect(actionTypes).toEqual(actionsExpected);
     });
   });
-  it('it dispatches add_bucketlist_REQUEST and add_bucketlist_SUCCESS', () => {
+  it('it dispatches add_bucketlist_SUCCESS', () => {
     const data = {
       name: 'Before 60',
       description: 'Things to do before I am 60'
@@ -42,7 +42,7 @@ describe('bucketlist_actions', () => {
         status: 201
       });
     });
-    const actionsExpected = ['add_bucketlist_REQUEST', 'add_bucketlist_SUCCESS'];
+    const actionsExpected = ['add_bucketlist_SUCCESS'];
     const store = mockStore({});
     return store.dispatch(actions.addBucketlist(data, () => {})).then(() => {
       const actionsDispatched = store.getActions();
@@ -50,7 +50,7 @@ describe('bucketlist_actions', () => {
       expect(actionTypes).toEqual(actionsExpected);
     });
   });
-  it('it dispatches delete_bucketlist_REQUEST and delete_bucketlist_SUCCESS', () => {
+  it('it dispatches delete_bucketlist_SUCCESS', () => {
     const id = 1;
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
@@ -58,7 +58,7 @@ describe('bucketlist_actions', () => {
         status: 200
       });
     });
-    const actionsExpected = ['delete_bucketlist_REQUEST', 'delete_bucketlist_SUCCESS'];
+    const actionsExpected = ['delete_bucketlist_SUCCESS'];
     const store = mockStore({});
     return store.dispatch(actions.deleteBucketlist(id, () => {})).then(() => {
       const actionsDispatched = store.getActions();
@@ -66,7 +66,7 @@ describe('bucketlist_actions', () => {
       expect(actionTypes).toEqual(actionsExpected);
     });
   });
-  it('it dispatches get_bucketlist_SUCCESS and get_bucketlist_REQUEST', () => {
+  it('it dispatches get_bucketlist_SUCCESS', () => {
     const id = 1;
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
@@ -74,7 +74,7 @@ describe('bucketlist_actions', () => {
         status: 200
       });
     });
-    const actionsExpected = ['get_bucketlist_REQUEST', 'get_bucketlist_SUCCESS'];
+    const actionsExpected = ['get_bucketlist_SUCCESS'];
     const store = mockStore({});
     return store.dispatch(actions.getBucketlist(id)).then(() => {
       const actionsDispatched = store.getActions();
@@ -82,7 +82,7 @@ describe('bucketlist_actions', () => {
       expect(actionTypes).toEqual(actionsExpected);
     });
   });
-  it('it dispatches edit_bucketlist_REQUEST and edit_bucketlist_SUCCESS', () => {
+  it('it dispatches edit_bucketlist_SUCCESS', () => {
     const id = 1;
     const data = { name: 'Before 50', description: 'Things to do before 50' };
     moxios.wait(() => {
@@ -91,7 +91,7 @@ describe('bucketlist_actions', () => {
         status: 200
       });
     });
-    const actionsExpected = ['edit_bucketlist_REQUEST', 'edit_bucketlist_SUCCESS'];
+    const actionsExpected = ['edit_bucketlist_SUCCESS'];
     const store = mockStore({});
     return store.dispatch(actions.editBucketlist(id, data, () => {})).then(() => {
       const actionsDispatched = store.getActions();
@@ -108,7 +108,7 @@ describe('bucketlist_actions', () => {
         status: 201
       });
     });
-    const actionsExpected = ['add_bucketlist_item_REQUEST', 'add_bucketlist_item_SUCCESS'];
+    const actionsExpected = ['add_bucketlist_item_SUCCESS'];
     const store = mockStore({});
     return store.dispatch(actions.addBucketlistItem(id, data, () => {})).then(() => {
       const actionsDispatched = store.getActions();
@@ -116,7 +116,7 @@ describe('bucketlist_actions', () => {
       expect(actionTypes).toEqual(actionsExpected);
     });
   });
-  it('dispatches delete_bucketlist_item_SUCCESS and delete_bucketlist_item_REQUEST', () => {
+  it('dispatches delete_bucketlist_item_SUCCESS', () => {
     const itemId = 1;
     const bucketlistId = 1;
     moxios.wait(() => {
@@ -125,7 +125,7 @@ describe('bucketlist_actions', () => {
         status: 200
       });
     });
-    const actionsExpected = ['delete_bucketlist_item_REQUEST', 'delete_bucketlist_item_SUCCESS'];
+    const actionsExpected = ['delete_bucketlist_item_SUCCESS'];
     const store = mockStore({});
     return store.dispatch(actions.deleteBucketlistItem(bucketlistId, itemId, () => {})).then(() => {
       const actionsDispatched = store.getActions();
@@ -133,7 +133,7 @@ describe('bucketlist_actions', () => {
       expect(actionTypes).toEqual(actionsExpected);
     });
   });
-  it('it dispatches edit_item_SUCCESS and edit_item_REQUEST', () => {
+  it('it dispatches edit_item_SUCCESS', () => {
     const itemId = 1;
     const bucketlistId = 1;
     const data = { name: 'Build a house', description: 'Build a house' };
@@ -143,7 +143,7 @@ describe('bucketlist_actions', () => {
         status: 200
       });
     });
-    const actionsExpected = ['edit_bucketlist_item_REQUEST', 'edit_bucketlist_item_SUCCESS'];
+    const actionsExpected = ['edit_bucketlist_item_SUCCESS'];
     const store = mockStore({});
     return store.dispatch(actions.editItem(bucketlistId, itemId, data, () => {})).then(() => {
       const actionsDispatched = store.getActions();
