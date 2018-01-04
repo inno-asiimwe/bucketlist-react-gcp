@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchBar component Matches its snapshot 1`] = `
+<form
+  className="form-inline my-2 my-lg-0"
+>
+  <input
+    className="form-control mr-sm-2"
+    onChange={[Function]}
+    placeholder="Search"
+    type="text"
+    value=""
+  />
+</form>
+`;

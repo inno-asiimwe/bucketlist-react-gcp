@@ -1,0 +1,22 @@
+form a {
+    margin-left: 5px;
+}
+
+li a {
+    margin-left: 15px;
+}
+
+body {
+    background: whitesmoke; 
+}
+div h3 {
+    margin-top: 50px;
+}
+table {
+    display: table;
+}
+.navbar-dark .navbar-nav button.nav-link{
+    color: #fff;
+    background-color: #008cba;
+    border: none;
+}

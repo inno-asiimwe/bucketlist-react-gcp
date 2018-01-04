@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewBucketlist Matches its snapshot 1`] = `
+<div
+  className="container"
+>
+  <ToastContainer
+    autoClose={5000}
+    bodyClassName=""
+    className={null}
+    closeButton={<DefaultCloseButton />}
+    closeOnClick={true}
+    hideProgressBar={false}
+    newestOnTop={false}
+    pauseOnHover={true}
+    position="top-right"
+    progressClassName=""
+    style={null}
+    toastClassName=""
+    transition={[Function]}
+  />
+  <h3>
+     New Bucketlist
+  </h3>
+  <br />
+  <form>
+    <Field
+      component={[Function]}
+      label="Bucketlist Name"
+      name="name"
+      type="input"
+    />
+    <Field
+      component={[Function]}
+      label="Bucketlist Description"
+      name="description"
+      type="text"
+    />
+    <button
+      className="btn btn-success"
+      type="submit"
+    >
+      Create
+    </button>
+    <Link
+      className="btn btn-danger"
+      replace={false}
+      to="/"
+    >
+      Cancel
+    </Link>
+  </form>
+</div>
+`;
