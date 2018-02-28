@@ -4,7 +4,7 @@ import store from './store';
 
 // Create an instance of axios with API url
 const instance = axios.create({
-  baseURL: 'https://inno-bucketlist-api.herokuapp.com/',
+  baseURL: 'http://bucketlist-api-server/',
 });
 
 // Add headers to the request in the instance
