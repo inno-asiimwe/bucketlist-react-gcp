@@ -1,5 +1,4 @@
-Plugins:
-  eslint:
-    enabled: true
-    config: 
-      config: .eslintrc.json
+eslint:
+  enabled: true
+  config: 
+    config: .eslintrc.json
